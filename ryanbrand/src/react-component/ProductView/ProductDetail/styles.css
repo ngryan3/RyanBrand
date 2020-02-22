@@ -1,0 +1,23 @@
+.productDetailContainer {
+    font-family: Arial;
+    margin-left: 20px;
+}
+.productTitle {
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    padding-top: 10px;
+}
+
+.productDescription {
+    font-size: 18px;
+    color: lightgray;
+    margin-top: 50px;
+}
+
+.productPrice {
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    margin-top: 100px
+}

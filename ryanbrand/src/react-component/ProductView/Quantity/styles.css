@@ -1,0 +1,27 @@
+.quantityButtonLeft {
+    margin-top: 20px;
+    border-radius: 3px 0 0 3px;
+}
+
+.quantityDisplay {
+    width: 40px;
+    text-align: center;
+}
+
+.quantityButtonRight {
+    margin-top: 20px;
+    border-radius: 0 3px 3px 0;
+}
+
+.buttonContainer {
+    margin-top: 100px;
+}
+
+.addToCartButton {
+    background-color: orange;
+    color: white;
+}
+
+.checkoutButton {
+    margin-left: 100px;
+}
