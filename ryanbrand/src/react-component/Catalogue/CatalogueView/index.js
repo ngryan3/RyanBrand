@@ -4,18 +4,13 @@ import Tile from '../Tile'
 
 class TileContainer extends React.Component{
 
-
-    // displayProduct() {
-    //     <ProductDetail/>
-    // }
-
-
     render() {
-        const {products} = this.props;
+        const { products } = this.props;
+        console.log(products)
         return (
             <div className="tileContainer">
                 {products.map(product => (
-            <Tile product={product}            />
+            <Tile product={product}/>
           ))}
             </div>
         )

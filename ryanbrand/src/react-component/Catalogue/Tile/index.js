@@ -3,11 +3,16 @@ import './styles.css';
 
 
 class Tile extends React.Component {
+    displayProduct() {
+        // displays product view for item
+    }
     render() {
-        const product = this.props
+        const tile = this.props
+        console.log(tile)
+        console.log(tile.product)
         return(
             <div className="tile">
-                {product.name}
+                {tile.product.name}
             </div>
         );
     }
