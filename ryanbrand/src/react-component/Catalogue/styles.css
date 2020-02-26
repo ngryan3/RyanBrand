@@ -1,11 +1,16 @@
 .tileContainer {
     display: flex;
-    flex-wrap: wrap
+    flex-flow: row wrap;
+    width: 800px;
+    height: auto;
+    margin: 0 auto;
+    overflow: auto;
 }
 
 .tile {
     background-color: blue;
-    flex:  1 0 30%;
+    flex: 0 1 calc(20% - 8px);
     margin: 5px;
-    height: 25px;
+    height: 200px;
+    text-align: center;
 }
