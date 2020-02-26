@@ -6,6 +6,7 @@ import './App.css';
 
 // Importing the Queue and our simple Home Page
 import ProductView from './react-component/ProductView'
+import Catalogue from './react-component/Catalogue'
 
 class App extends React.Component {
     render() {
@@ -14,6 +15,7 @@ class App extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         <Route exact path='/' render={()=> (<ProductView/>)}/>
+                        <Route exact path='/catalogue' render={()=> (<Catalogue/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>

@@ -1,0 +1,11 @@
+.tileContainer {
+    display: flex;
+    flex-wrap: wrap
+}
+
+.tile {
+    background-color: blue;
+    flex:  1 0 30%;
+    margin: 5px;
+    height: 25px;
+}
