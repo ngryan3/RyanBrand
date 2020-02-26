@@ -1,0 +1,14 @@
+.tile {
+    background-color: blue;
+    flex: 0 1 calc(20% - 8px);
+    margin: 5px;
+    height: 200px;
+    text-align: center;
+}
+
+.tileImg {
+    height: fit-content;
+}
+.tileText {
+    text-align: center;
+}
