@@ -2,6 +2,9 @@ import React from 'react';
 import UserTable from '../UserTable/UserTable.js';
 import UserForm from '../UserForm/'
 //import { addUser } from "../test.js";
+import "./index.css"
+import ProductTable from '../ProductTable/'
+import ee from "../../images/bag.png" 
 
 class AdminView extends React.Component {
     constructor(props) {    
@@ -14,7 +17,11 @@ class AdminView extends React.Component {
             {name: 'kek', joined:new Date().toLocaleString()},
             {name: 'ryan ng', joined:new Date().toLocaleString()}
         ],
-        userName:""
+        products: [
+            {name: "a backpack", price:"20.00", image: ee}
+        ],
+        userName:"",
+        active: 0
     }
 
     handleChange = event => {
@@ -43,9 +50,16 @@ class AdminView extends React.Component {
         });
     }
 
-    render() {
+    switchTab = (num) => {
+        this.setState({
+            active: num
+        })
+        console.log(this.state.active)
+    }
+
+    returner =() =>{
         return(
-        <div>
+            <div class="lel">
             <UserForm 
                 userName={this.state.userName}
                 handleChange={this.handleChange}
@@ -55,6 +69,27 @@ class AdminView extends React.Component {
             </table>
             
         </div>
+        )
+    }
+
+    productse = () => {
+        return(
+            <div class="lel">
+            <table>
+                <ProductTable products={this.state.products} component={this}></ProductTable>
+            </table>
+            
+        </div>
+        )
+    }
+    render() {
+        return(
+            <div>
+                <button onClick={() => this.switchTab(0)}>User List</button>
+                <button onClick={() => this.switchTab(1)}>Product List</button>
+                {this.state.active ?  this.productse(): this.returner()}
+            </div>
+
         )
     }
 }
