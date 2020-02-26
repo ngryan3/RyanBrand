@@ -5,6 +5,7 @@ import UserForm from '../UserForm/'
 import "./index.css"
 import ProductTable from '../ProductTable/'
 import ee from "../../images/bag.png" 
+import ProductForm from "../ProductForm"
 
 class AdminView extends React.Component {
     constructor(props) {    
@@ -21,6 +22,8 @@ class AdminView extends React.Component {
             {name: "a backpack", price:"20.00", image: ee}
         ],
         userName:"",
+        productName:"",
+        productPrice:"",
         active: 0
     }
 
@@ -50,6 +53,22 @@ class AdminView extends React.Component {
         });
     }
 
+    addProduct = component => {
+        //e.preventDefault();
+        const lst = component.state.products;
+
+        const product = {
+            name:component.state.productName,
+            price: component.state.productPrice,
+            img: null
+        }
+
+        lst.push(product)
+        component.setState({
+            products:lst
+        });
+    }
+
     switchTab = (num) => {
         this.setState({
             active: num
@@ -75,6 +94,11 @@ class AdminView extends React.Component {
     productse = () => {
         return(
             <div class="lel">
+            <ProductForm 
+                productName={this.state.productName}
+                productPrice={this.state.productPrice}
+                handleChange={this.handleChange}
+                addUser={() => this.addProduct(this)}></ProductForm>
             <table>
                 <ProductTable products={this.state.products} component={this}></ProductTable>
             </table>
