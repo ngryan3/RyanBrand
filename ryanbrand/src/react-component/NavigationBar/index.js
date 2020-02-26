@@ -1,6 +1,7 @@
 import React from "react";
 import './styles.css'
 
+
 class NavigationBar extends React.Component {
     render() {
         return (
@@ -16,6 +17,7 @@ class NavigationBar extends React.Component {
                             <li><a href='/'>Home</a></li>
                             <li><a href='/about'>About</a></li>
                             <li><a href='/login'>Login/Register</a></li>
+                            <li><a href='/catalogue'>Catalogue</a></li>
                             <li><a href='/cart'><i className="fa fa-shopping-cart"></i> Cart</a></li>
                         </ul>
                     </div>
