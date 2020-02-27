@@ -1,7 +1,7 @@
 import React from "react";
-import ProductDetail from "../../ProductView/ProductDetail"
 import './styles.css';
 import { withRouter } from 'react-router-dom';
+import productImg from './product_placeholder.png';
 
 
 
@@ -21,7 +21,8 @@ class Tile extends React.Component {
 
         return(
             <div className="tile" onClick={this.handleClick}>
-                {product.name}
+                <div className="tileText">{product.name}</div>
+                <img src={productImg} alt={"productImg"}/>
             </div>
         );
     }

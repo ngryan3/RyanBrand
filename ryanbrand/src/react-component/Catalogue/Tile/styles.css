@@ -1,15 +1,19 @@
 .tile {
-    background-color: blue;
+    background-color: whitesmoke;
     flex: 0 1 calc(20% - 8px);
     margin: 5px;
-    height: 200px;
+    min-width: 100px;
+    height: 220px;
     text-align: center;
     color: black;
-}
+    overflow: hidden;
+    }
+    .tile img {
+        height: 185px;
+    }
 
-.tileImg {
-    height: fit-content;
-}
+
 .tileText {
     text-align: center;
+    margin: 5px;
 }

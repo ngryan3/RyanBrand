@@ -1,8 +1,7 @@
 .tileContainer {
     display: flex;
     flex-flow: row wrap;
-    width: 800px;
+    max-width: 1000px;
     height: auto;
-    margin: 0 auto;
     overflow: auto;
 }
