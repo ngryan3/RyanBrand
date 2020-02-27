@@ -12,10 +12,11 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <BrowserRouter>
+                <BrowserRouter> 
                     <Switch>
-                        <Route exact path='/' render={()=> (<ProductView/>)}/>
-                        <Route exact path='/catalogue' render={()=> (<Catalogue/>)}/>
+                        {/*Making catalogue as home page for testing*/}
+                        <Route exact path='/' render={()=> (<Catalogue/>)}/>
+                        <Route path='/product' render={() => (<ProductView/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
