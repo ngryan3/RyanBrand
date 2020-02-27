@@ -1,21 +1,31 @@
 import React from "react";
+import ProductDetail from "../../ProductView/ProductDetail"
 import './styles.css';
+import { withRouter } from 'react-router-dom';
+
 
 
 class Tile extends React.Component {
-    displayProduct() {
+    handleClick = () => {
         // displays product view for item
+        console.log(this.props.product)
+        this.props.history.push({
+            pathname: '/product',
+            state: this.props.product
+        })
     }
+
+
     render() {
-        const tile = this.props
-        console.log(tile)
-        console.log(tile.product)
+        const { product } = this.props;
+
         return(
-            <div className="tile">
-                {tile.product.name}
+            <div className="tile" onClick={this.handleClick}>
+                {product.name}
             </div>
         );
     }
 }
 
-export default Tile
+
+export default withRouter(Tile) 

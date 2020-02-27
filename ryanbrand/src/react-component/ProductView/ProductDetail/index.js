@@ -1,20 +1,23 @@
 import React from "react";
 import './styles.css';
 import Quantity from "../Quantity";
+import { withRouter } from 'react-router-dom';
 
 
 class ProductDetail extends React.Component {
     render() {
+        console.log(this.state)
+        const product = this.props.history.location.state
         return (
             <div className="productDetailContainer">
                 <div className="productTitle">
-                Product Title
+                    {product.name}
                 </div>
                 <div className="productDescription">
-                    Product description goes here
+                    {product.description}
                 </div>
                 <div className="productPrice">
-                    $199.99
+                    {product.price}
                 </div>
                 <div className="productDescription">
                     Quantity:
@@ -26,4 +29,4 @@ class ProductDetail extends React.Component {
 
 }
 
-export default ProductDetail;
+export default withRouter(ProductDetail);
