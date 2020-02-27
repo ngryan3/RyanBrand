@@ -17,7 +17,8 @@ class NavigationBar extends React.Component {
                             <li><a href='/'>Home</a></li>
                             <li><a href='/about'>About</a></li>
                             <li><a href='/login'>Login/Register</a></li>
-                            <li><a href='/catalogue'>Catalogue</a></li>
+                            {/*Making catalogue as home page for testing*/}
+                            {/* <li><a href='/catalogue'>Catalogue</a></li> */}
                             <li><a href='/cart'><i className="fa fa-shopping-cart"></i> Cart</a></li>
                         </ul>
                     </div>
