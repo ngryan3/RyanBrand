@@ -1,0 +1,14 @@
+.lel {
+    width: 90vw;
+    height: 90vh;
+    margin:auto;
+    background-color: white;
+}
+
+.hide{
+    visibility:hidden;
+}
+
+.show{
+    visibility: visible;
+}

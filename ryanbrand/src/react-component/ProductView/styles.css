@@ -3,15 +3,15 @@ body {
 }
 
 .product {
-    width: 1000px;
-    height: 600px;
+    width: 85%;
+    height: 80%;
     background-color: dimgray;
     position: absolute;
     top:0;
     bottom: 0;
     left: 0;
     right: 0;
-    margin: auto;
+    margin: 80px auto auto auto;
     display: flex;
 }
 
