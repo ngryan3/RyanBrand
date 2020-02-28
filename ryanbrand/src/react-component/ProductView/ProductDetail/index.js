@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 class ProductDetail extends React.Component {
     render() {
-        console.log(this.state)
+        console.log(this.props.history)
         const product = this.props.history.location.state
         return (
             <div className="productDetailContainer">
@@ -17,12 +17,12 @@ class ProductDetail extends React.Component {
                     {product.description}
                 </div>
                 <div className="productPrice">
-                    {product.price}
+                    {"$" + product.price}
                 </div>
                 <div className="productDescription">
                     Quantity:
                 </div>
-                <Quantity/>
+                <Quantity detail={ product }/>
             </div>
         )
     }

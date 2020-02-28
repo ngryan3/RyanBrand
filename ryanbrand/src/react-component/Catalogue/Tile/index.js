@@ -8,16 +8,16 @@ import productImg from './product_placeholder.png';
 class Tile extends React.Component {
     handleClick = () => {
         // displays product view for item
-        console.log(this.props.product)
-        this.props.history.push({
-            pathname: '/product',
-            state: this.props.product
-        })
+        console.log(this.props)
+        // this.props.history.push({
+        //     pathname: '/product',
+        //     state: this.props.product
+        // })
     }
 
 
     render() {
-        const { product } = this.props;
+        const { product, userCart } = this.props;
 
         return(
             <div className="tile" onClick={this.handleClick}>
