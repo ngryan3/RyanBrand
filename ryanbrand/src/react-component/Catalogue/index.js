@@ -12,6 +12,7 @@ class Catalogue extends React.Component {
         products: [
             {
                 name: "Product1",
+                id: 1,
                 type: "Type1",
                 description: "Something Ryan related",
                 filename: "product_placeholder.jpg",
@@ -19,6 +20,7 @@ class Catalogue extends React.Component {
             },
             {
                 name: "Product2",
+                id: 2,
                 type: "Type2",
                 description: "Something Ryan related",
                 filename: "product_placeholder.jpg",
@@ -26,6 +28,7 @@ class Catalogue extends React.Component {
             },
             {
                 name: "Product2",
+                id: 3,
                 type: "Type3",
                 description: "Something Ryan related",
                 filename: "product_placeholder.jpg",
@@ -33,6 +36,7 @@ class Catalogue extends React.Component {
             },
             {
                 name: "Product2",
+                id: 4,
                 type: "Type4",
                 description: "Something Ryan related",
                 filename: "product_placeholder.jpg",
@@ -40,6 +44,7 @@ class Catalogue extends React.Component {
             }
             , {
                 name: "Product3",
+                id: 5,
                 type: "Type2",
                 description: "Something Ryan related",
                 filename: "product_placeholder.jpg",
@@ -47,6 +52,7 @@ class Catalogue extends React.Component {
             }
             , {
                 name: "Product4",
+                id: 6,
                 type: "Type2",
                 description: "Something Ryan related",
                 filename: "product_placeholder.jpg",
@@ -54,6 +60,7 @@ class Catalogue extends React.Component {
             }
             , {
                 name: "Product5",
+                id: 7,
                 type: "Type2",
                 description: "Something Ryan related",
                 filename: "product_placeholder.jpg",
@@ -69,8 +76,7 @@ class Catalogue extends React.Component {
                 <NavigationBar />
                 <div className="columns"> 
                     <div className='column-left'><Sidebar/></div>
-                    <div className='column-right'><TileContainer products={this.state.products}
-                                                                 userCart = { this.state.userCart }/></div>
+                    <div className='column-right'><TileContainer products={this.state.products}/></div>
                 </div>
             </div>
         )
