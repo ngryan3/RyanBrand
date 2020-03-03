@@ -8,6 +8,7 @@ import './App.css';
 import ProductView from './react-component/ProductView'
 import AdminView from './react-component/AdminDashboard'
 import Catalogue from './react-component/Catalogue'
+import LoginView from './react-component/Login'
 
 class App extends React.Component {
     render() {
@@ -19,6 +20,7 @@ class App extends React.Component {
                         <Route exact path='/' render={()=> (<Catalogue/>)}/>
                         <Route path='/product' render={() => (<ProductView/>)}/>
                         <Route exact path='/admin' render={()=> (<AdminView/>)}/>
+                        <Route exact path='/login' render={()=> (<LoginView/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
