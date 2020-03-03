@@ -4,6 +4,8 @@
     margin-top: 60px;
     align-content: center;
     background-color: whitesmoke;
+    margin-bottom: 5px;
+    text-align: center;
 }
 #login-logo {
     width: 25%;
@@ -17,17 +19,20 @@
 .login-form {
     text-align: center;
     background-color: whitesmoke;
-    padding-top: 80px;
-    width: 80%;
+    padding-top: 50px;
+    width: 40%;
     margin: 0 auto;
 }
 
 .form-block {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 #btn-login {
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#btn-login-register {
+    margin: 0 auto;
 }
