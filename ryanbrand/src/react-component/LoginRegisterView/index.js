@@ -29,10 +29,13 @@ class LoginView extends React.Component {
     }
     render() {
         return (
-            <div id="container-login">
+            <div>
                 <NavigationBar />
+            <div id="container-login">
+                
                 {this.state.screen}
                 <button id="btn-login-register" onClick={(event) => this.handleClick(event)}>{this.state.buttonLabel}</button>
+            </div>
             </div>
         )
     }
