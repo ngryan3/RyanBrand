@@ -13,10 +13,10 @@ class UserTable extends React.Component {
         return(
         <div>
             <tr>
-                <th class="first" >User</th>
-                <th class="email">Email</th>
-                <th class="second">Date Joined</th>
-                <th class="third">Remove?</th>
+                <th class="first heade" >User</th>
+                <th class="email heade">Email</th>
+                <th class="second heade">Date Joined</th>
+                <th class="third heade">Remove?</th>
             </tr>
             {users.map(user => (
                 <User

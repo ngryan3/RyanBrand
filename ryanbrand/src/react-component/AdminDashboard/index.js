@@ -8,6 +8,8 @@ import ee from "../../images/bag.png"
 import placeholder from "../../images/placeholder.png"
 import ProductForm from "./ProductForm"
 import NavigationBar from "../NavigationBar";
+import MostPopular from "./MostPopular"
+import Ratings from "./Ratings"
 
 
 class AdminView extends React.Component {
@@ -22,7 +24,7 @@ class AdminView extends React.Component {
             {name: 'ryan ng', email:"goodbye@gmail.ce", joined:new Date().toLocaleString()}
         ],
         products: [
-            {name: "a backpack", price:"20.00", image: ee}
+            {name: "a backpack", price:"20.00", clicks:0, image: ee}
         ],
         userName:"",
         productName:"",
@@ -92,7 +94,8 @@ class AdminView extends React.Component {
         const product = {
             name:component.state.productName,
             price: component.state.productPrice,
-            image: placeholder
+            image: placeholder,
+            clicks: 0
         }
 
         lst.push(product)
@@ -139,13 +142,23 @@ class AdminView extends React.Component {
         </div>
         )
     }
+
+    stats = () => {
+        return(
+            <div class="MainTab">
+                <MostPopular></MostPopular>
+                <Ratings></Ratings>
+            </div>
+        )
+    }
     render() {
         return(
             <div>
                 <NavigationBar/>
                 <button class="tabs" onClick={() => this.switchTab(0)}>User List</button>
                 <button class="tabs" onClick={() => this.switchTab(1)}>Product List</button>
-                {this.state.active ?  this.productse(): this.returner()}
+                <button class="tabs" onClick={() => this.switchTab(2)}>Stats</button>
+                {this.state.active == 1 ?  this.productse(): this.state.active == 2? this.stats():this.returner()}
             </div>
 
         )

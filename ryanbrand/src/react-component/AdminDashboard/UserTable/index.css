@@ -11,26 +11,31 @@
 }
 
 .first{
-    width: 300px;
+    width: 20vw;
     border-right-style: solid;
     border-width: 1px;
     border-color: black;
 }
 .second{
-    width: 400px;
+    width: 25vw;
     border-right-style: solid;
     border-width: 1px;
     border-color: black;
 }
 .email{
-    width: 300px;
+    width: 25vw;
     border-right-style: solid;
     border-width: 1px;
     border-color: black;
 }
 
-
+.heade {
+    background-color: black;
+    color:white;
+    font-size: 20px;
+}
 .third{
-    width: 75px;
+    width: 10vw;
+    
 
 }
