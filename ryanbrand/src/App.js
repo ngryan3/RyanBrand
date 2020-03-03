@@ -9,7 +9,7 @@ import ProductView from './react-component/ProductView'
 import AdminView from './react-component/AdminDashboard'
 import Catalogue from './react-component/Catalogue'
 import About from './react-component/About'
-import Checkout  from "./react-component/Checkout";
+import Checkout from './react-component/Checkout'
 import Cart from "./react-component/Cart"
 
 
