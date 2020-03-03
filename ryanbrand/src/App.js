@@ -8,7 +8,7 @@ import './App.css';
 import ProductView from './react-component/ProductView'
 import AdminView from './react-component/AdminDashboard'
 import Catalogue from './react-component/Catalogue'
-import LoginView from './react-component/Login'
+import LoginView from './react-component/LoginRegisterView/'
 import About from './react-component/About'
 import Checkout from './react-component/Checkout'
 import Cart from "./react-component/Cart"
