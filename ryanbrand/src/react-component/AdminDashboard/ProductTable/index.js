@@ -1,6 +1,6 @@
 import React from 'react';
 import '../UserTable/index.css';
-import Product from "../Product/";
+import Product from "../Product";
 import { uid } from "react-uid";
 
 
@@ -13,10 +13,11 @@ class ProductTable extends React.Component {
         return(
         <div>
             <tr>
-                <th class="first">Product Name</th>
-                <th class="second">Price</th>
-                <th class="third">image</th>
-                <th class="third">Remove?</th>
+                <th class="first heade">Product Name</th>
+                <th class="second heade">Price</th>
+                <th class="clicks heade">Clicks</th>
+                <th class="third heade">image</th>
+                <th class="third heade">Remove?</th>
             </tr>
             {products.map(product => (
                 <Product
