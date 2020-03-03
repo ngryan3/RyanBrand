@@ -1,11 +1,14 @@
 import React from 'react';
-import UserTable from '../UserTable/UserTable.js';
-import UserForm from '../UserForm/'
+import UserTable from './UserTable/UserTable.js';
+import UserForm from './UserForm'
 //import { addUser } from "../test.js";
 import "./index.css"
-import ProductTable from '../ProductTable/'
+import ProductTable from './ProductTable'
 import ee from "../../images/bag.png" 
-import ProductForm from "../ProductForm"
+import placeholder from "../../images/placeholder.png"
+import ProductForm from "./ProductForm"
+import NavigationBar from "../NavigationBar";
+
 
 class AdminView extends React.Component {
     constructor(props) {    
@@ -15,8 +18,8 @@ class AdminView extends React.Component {
 
     state = {
         users: [
-            {name: 'kek', joined:new Date().toLocaleString()},
-            {name: 'ryan ng', joined:new Date().toLocaleString()}
+            {name: 'kek', email:"hello@spam.com", joined:new Date().toLocaleString()},
+            {name: 'ryan ng', email:"goodbye@gmail.ce", joined:new Date().toLocaleString()}
         ],
         products: [
             {name: "a backpack", price:"20.00", image: ee}
@@ -24,6 +27,7 @@ class AdminView extends React.Component {
         userName:"",
         productName:"",
         productPrice:"",
+        userEmail: "",
         active: 0
     }
 
@@ -38,12 +42,29 @@ class AdminView extends React.Component {
         });
     };
 
+    fune(inp) {
+        
+        alert(inp +  ", user not added")
+    }
+
     addUser = component => {
         //e.preventDefault();
+        
         const lst = component.state.users;
+        for (let i = 0; i < lst.length; i++) {
+            if (lst[i].email == component.state.userEmail) {
+                this.fune("dupe user")
+                return
+            }
+        }
 
+        if(component.state.userName == "" || component.state.userEmail == "") {
+            this.fune("empty name or empty email")
+            return
+        }
         const user = {
             name:component.state.userName,
+            email: component.state.userEmail,
             joined: new Date().toLocaleString()
         }
 
@@ -56,11 +77,22 @@ class AdminView extends React.Component {
     addProduct = component => {
         //e.preventDefault();
         const lst = component.state.products;
+        for (let i = 0; i < lst.length; i++) {
+            if (lst[i].name == component.state.productName) {
+                this.fune("dupe product " + lst[i].name)
+                return
+            }
+        }
+
+        if(component.state.productName == "" || component.state.productPrice == "") {
+            this.fune("empty name or empty price")
+            return
+        }
 
         const product = {
             name:component.state.productName,
             price: component.state.productPrice,
-            img: null
+            image: placeholder
         }
 
         lst.push(product)
@@ -78,9 +110,10 @@ class AdminView extends React.Component {
 
     returner =() =>{
         return(
-            <div class="lel">
+            <div class="MainTab">
             <UserForm 
                 userName={this.state.userName}
+                userEmail={this.state.userEmail}
                 handleChange={this.handleChange}
                 addUser={() => this.addUser(this)}></UserForm>
             <table>
@@ -93,7 +126,7 @@ class AdminView extends React.Component {
 
     productse = () => {
         return(
-            <div class="lel">
+            <div class="MainTab">
             <ProductForm 
                 productName={this.state.productName}
                 productPrice={this.state.productPrice}
@@ -109,8 +142,9 @@ class AdminView extends React.Component {
     render() {
         return(
             <div>
-                <button onClick={() => this.switchTab(0)}>User List</button>
-                <button onClick={() => this.switchTab(1)}>Product List</button>
+                <NavigationBar/>
+                <button class="tabs" onClick={() => this.switchTab(0)}>User List</button>
+                <button class="tabs" onClick={() => this.switchTab(1)}>Product List</button>
                 {this.state.active ?  this.productse(): this.returner()}
             </div>
 

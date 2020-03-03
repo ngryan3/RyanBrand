@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import User from "./../User/User.js";
+import User from "../User/User.js";
 import { uid } from "react-uid";
 
 
@@ -13,7 +13,8 @@ class UserTable extends React.Component {
         return(
         <div>
             <tr>
-                <th class="first">User</th>
+                <th class="first" >User</th>
+                <th class="email">Email</th>
                 <th class="second">Date Joined</th>
                 <th class="third">Remove?</th>
             </tr>

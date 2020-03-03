@@ -1,6 +1,6 @@
 import React from 'react';
 import '../UserTable/index.css';
-import Product from "../Product/";
+import Product from "../Product";
 import { uid } from "react-uid";
 
 

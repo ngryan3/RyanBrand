@@ -27,6 +27,9 @@ class User extends React.Component {
             <td class="first">
                 {user.name}
             </td>
+            <td class="email">
+                {user.email}
+            </td>
             <td class="second">
                 {user.joined}
             </td>

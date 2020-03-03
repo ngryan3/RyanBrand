@@ -32,7 +32,7 @@ class Product extends React.Component {
                 {product.price}
             </td>
             <td class="third">
-                <img src={product.image} class="productImage" alt="there is no image for this product"></img>
+                <img src={product.image} class="productImage" alt="the"></img>
             </td>
             <td class="third">
                 <button onClick={this.remover.bind(this, component, product)}>remove</button>

@@ -21,8 +21,15 @@
     border-right-style: solid;
     border-width: 1px;
     border-color: black;
-
 }
+.email{
+    width: 300px;
+    border-right-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+
 .third{
     width: 75px;
 
