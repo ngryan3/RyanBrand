@@ -10,12 +10,21 @@ const testPassword = "password"
 class LoginView extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {username: "", password: ""}
+        this.state = {username: "", password: ""};
     }
+    
+    usernameChangeHandler = (event) => {
+        this.setState({username: event.target.value});
+    }
+
+    passwordChangeHandler = (event) => {
+        this.setState({password: event.target.value});
+    }
+
     handleClick(event) {
         event.preventDefault();
-        console.log(this.state.username)
-        console.log(this.state.password)
+        console.log(this.state.username);
+        console.log(this.state.password);
         if (testUsername === this.state.username && testPassword === this.state.password) {
             alert("You are now logged in.")
 
@@ -23,6 +32,7 @@ class LoginView extends React.Component {
             alert("Username and password do not match!");
         }
     }
+    
     render() {
         return (
             <div>
@@ -33,11 +43,11 @@ class LoginView extends React.Component {
                         <h1>Welcome!</h1>
                         <div className="form-block">
                             <label>Username:</label><br />
-                            <input type="text" id="fusername" name="fusername" onChange= {(event, newValue) => this.setState({username:newValue})}></input><br />
+                            <input type="text" id="fusername" name="fusername" onChange={this.usernameChangeHandler}></input><br />
                         </div>
                         <div className="form-block">
                             <label>Password: </label><br />
-                            <input type="text" id="fpassword" name="fpassword" onChange= {(event, newValue) => this.setState({password:newValue})}></input><br />
+                            <input type="text" id="fpassword" name="fpassword" onChange= {this.passwordChangeHandler}></input><br />
                         </div>
                         <Link id="goSignup">Don't have an account? Click here to signup!</Link><br />
                         <button id="btn-login" onClick={(event) => this.handleClick(event)}>Login</button><br />
