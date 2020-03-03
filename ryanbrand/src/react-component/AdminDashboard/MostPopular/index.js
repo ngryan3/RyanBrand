@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductTable from "../ProductTable"
 import './index.css'
+import Title from '../Title'
 class MostPopular extends React.Component {
 
 
@@ -13,10 +14,17 @@ class MostPopular extends React.Component {
         const parsed = JSON.parse(stringed)
         console.log(parsed)
 
+        const {
+            component
+        } = this.props;
+
         return(
         <div>
-            <span class="tite">List of most Popular Items</span>
-            <ProductTable products={parsed} component={this}></ProductTable>
+            <Title title="List of Most Popular Items"></Title>
+            <table class="displayTable"> 
+                <ProductTable products={parsed} component={component}></ProductTable>
+            </table>
+            
         </div>
         )
     }
