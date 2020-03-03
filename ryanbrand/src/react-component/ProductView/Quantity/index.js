@@ -1,5 +1,6 @@
 import React from "react";
 import './styles.css';
+import { withRouter } from 'react-router-dom';
 
 
 class Quantity extends React.Component {
@@ -9,7 +10,6 @@ class Quantity extends React.Component {
 
         this.increment = this.increment.bind(this);
         this.decrement = this.decrement.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     increment() {
@@ -24,12 +24,9 @@ class Quantity extends React.Component {
         console.log(this.state.quantity)
     };
 
-    handleSubmit(event){
-        alert(this.state.quantity + ' of the products were added to your cart');
-        event.preventDefault();
-    }
 
     render() {
+        const { detail } = this.props
         return (
             <div className="quantityContainer">
                 <div>
@@ -37,16 +34,14 @@ class Quantity extends React.Component {
                     <input className="quantityDisplay" value={ this.state.quantity }/>
                     <button className="quantityButtonRight" onClick={ this.increment }>+</button>
                 </div>
-                <form onSubmit={ this.handleSubmit }>
                     <div className="buttonContainer">
-                        <button className="addToCartButton" type="submit">Add to Cart</button>
-                        <button className="checkoutButton" type="submit">Proceed to Checkout</button>
+                        <button className="addToCartButton">Add to Cart</button>
                     </div>
-                </form>
+
             </div>
         )
     }
 
 }
 
-export default Quantity;
+export default withRouter(Quantity)

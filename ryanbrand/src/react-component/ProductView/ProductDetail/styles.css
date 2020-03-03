@@ -1,6 +1,7 @@
 .productDetailContainer {
     font-family: Arial;
     margin-left: 20px;
+    height: 100%;
 }
 .productTitle {
     font-weight: bold;
@@ -10,9 +11,10 @@
 }
 
 .productDescription {
-    font-size: 18px;
+    font-size: 20px;
     color: lightgray;
     margin-top: 50px;
+    word-wrap: break-word;
 }
 
 .productPrice {

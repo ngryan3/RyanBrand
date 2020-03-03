@@ -36,4 +36,6 @@ body {
 
 .right {
     width: 60%;
+    overflow: auto;
+    overflow-x: hidden;
 }

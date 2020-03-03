@@ -15,7 +15,9 @@
 
 .buttonContainer {
     margin-top: 50px;
+    display: inline-block;
 }
+
 
 .addToCartButton {
     background-color: orange;

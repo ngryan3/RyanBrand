@@ -1,14 +1,18 @@
 import React from 'react';
 
 import NavigationBar from "../NavigationBar";
+import { withRouter } from 'react-router-dom';
 
 class Checkout extends React.Component {
     render() {
-        const { items } =this.props;
         return(
-            <NavigationBar />
+            <div>
+                <NavigationBar />
+
+            </div>
 
         )
     }
 }
-export default Checkout;
+
+export default withRouter(Checkout);

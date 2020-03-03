@@ -9,6 +9,8 @@ import ProductView from './react-component/ProductView'
 import AdminView from './react-component/AdminDashboard'
 import Catalogue from './react-component/Catalogue'
 import About from './react-component/About'
+import Checkout  from "./react-component/Checkout";
+
 
 class App extends React.Component {
     render() {
@@ -21,6 +23,7 @@ class App extends React.Component {
                         <Route path='/product' render={() => (<ProductView/>)}/>
                         <Route exact path='/admin' render={()=> (<AdminView/>)}/>
                         <Route exact path='/about' render={()=> (<About/>)}/>
+                        <Route exact path='/checkout' render={() => (<Checkout/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
