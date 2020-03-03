@@ -1,0 +1,33 @@
+#container-login{
+    width: 100vw;
+    height: 100vh;
+    margin-top: 60px;
+    align-content: center;
+    background-color: whitesmoke;
+}
+#login-logo {
+    width: 25%;
+    max-width: 250px;
+}
+
+#login-logo img {
+    width: 90%;
+}
+
+.login-form {
+    text-align: center;
+    background-color: whitesmoke;
+    padding-top: 80px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.form-block {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#btn-login {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
