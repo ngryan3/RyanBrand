@@ -1,7 +1,6 @@
 import React from "react";
 import './styles.css';
 import { withRouter } from 'react-router-dom';
-import { addToCart } from "../../../actions/cart";
 
 
 class Quantity extends React.Component {
@@ -27,7 +26,7 @@ class Quantity extends React.Component {
 
 
     render() {
-        console.log(this.props);
+        const { detail } = this.props
         return (
             <div className="quantityContainer">
                 <div>
@@ -36,7 +35,7 @@ class Quantity extends React.Component {
                     <button className="quantityButtonRight" onClick={ this.increment }>+</button>
                 </div>
                     <div className="buttonContainer">
-                        <button className="addToCartButton" onClick={ () => addToCart(this) }>Add to Cart</button>
+                        <button className="addToCartButton">Add to Cart</button>
                     </div>
 
             </div>
