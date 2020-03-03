@@ -1,0 +1,31 @@
+.headerAbout {
+    position: relative;
+    top: 15vh;
+    left: 5vw;
+
+}
+
+.paraAbout {
+    width: 60vw;
+    height: 60vh;
+    background-color: rgba(234, 229, 238, 0.459);
+    position: relative;
+    top:16vh;
+    float:left;
+    left: 5vw;
+    border-radius:10px;
+}
+
+.paraText {
+    margin-left: 10px;
+    margin-top:10px;
+}
+
+.ryan {
+    float:right;
+    margin-right: 10vw;
+    margin-top: 10vh;
+    border-style: solid;
+    border-radius: 1px;
+    border-color: black;
+}

@@ -1,16 +1,26 @@
 import React from 'react';
-
+import NavigationBar from '../NavigationBar'
+import Title from "../AdminDashboard/Title"
+import './index.css'
+import ryan from "../../images/ryan.png"
 
 class About extends React.Component {   
 
-    
     render() {
+        const para = "Hey all, thanks for visiting my Site! I'm Ryan, a 23 year old computer science major at UofT. Right now I'm looking to expand my sphere with an online shop! I have various social media which you can access below. Make sure to follow me on twitter for my latest life updates."
         return(
             <div>
-                <h1>Hi guys i'm ryan.</h1>
-                <span>Really glad you could all be here today. I'm a 23 year old computer science major at uoft. Right now I'm looking into expanding my sphere into an online shop, since that's popular nowadays. I have a twitter, facebook, and twitch. I stream literally never, so give me a follow to know when i'm streaming!</span>
+                <NavigationBar></NavigationBar>
+                <div class="headerAbout">
+                    <Title title="Hey guys Ryan here!"></Title>
+                </div>
+                <div class="paraAbout">
+
+                <div class="paraText">{para}</div>
+
+                </div>
+                <img class="ryan" src={ryan} alt="fuck"></img>
                 <br></br>
-                <a href="https://old.reddit.com">click me! </a>
             </div>
 
         )
