@@ -10,7 +10,8 @@ import ProductForm from "./ProductForm"
 import NavigationBar from "../NavigationBar";
 import MostPopular from "./MostPopular"
 import Ratings from "./Ratings"
-
+import Title from "./Title"
+import Tabs from "./Tabs"
 
 class AdminView extends React.Component {
     constructor(props) {    
@@ -104,22 +105,23 @@ class AdminView extends React.Component {
         });
     }
 
-    switchTab = (num) => {
-        this.setState({
+    switchTab = (num, component) => {
+        component.setState({
             active: num
         })
-        console.log(this.state.active)
+        console.log(component.state.active)
     }
 
     returner =() =>{
         return(
             <div class="MainTab">
+            <Title title="User List"></Title>
             <UserForm 
                 userName={this.state.userName}
                 userEmail={this.state.userEmail}
                 handleChange={this.handleChange}
                 addUser={() => this.addUser(this)}></UserForm>
-            <table>
+            <table class = "displayTable">
                 <UserTable users={this.state.users} component={this}></UserTable>
             </table>
             
@@ -130,12 +132,13 @@ class AdminView extends React.Component {
     productse = () => {
         return(
             <div class="MainTab">
+            <Title title="Products List"></Title>
             <ProductForm 
                 productName={this.state.productName}
                 productPrice={this.state.productPrice}
                 handleChange={this.handleChange}
                 addUser={() => this.addProduct(this)}></ProductForm>
-            <table>
+            <table class = "displayTable">
                 <ProductTable products={this.state.products} component={this}></ProductTable>
             </table>
             
@@ -146,7 +149,7 @@ class AdminView extends React.Component {
     stats = () => {
         return(
             <div class="MainTab">
-                <MostPopular></MostPopular>
+                <MostPopular component={this}></MostPopular>
                 <Ratings></Ratings>
             </div>
         )
@@ -155,9 +158,8 @@ class AdminView extends React.Component {
         return(
             <div>
                 <NavigationBar/>
-                <button class="tabs" onClick={() => this.switchTab(0)}>User List</button>
-                <button class="tabs" onClick={() => this.switchTab(1)}>Product List</button>
-                <button class="tabs" onClick={() => this.switchTab(2)}>Stats</button>
+                <Tabs switcher={this.switchTab} component={this}></Tabs>
+
                 {this.state.active == 1 ?  this.productse(): this.state.active == 2? this.stats():this.returner()}
             </div>
 

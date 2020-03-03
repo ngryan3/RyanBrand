@@ -1,5 +1,6 @@
 import React from 'react';
-import '../MostPopular/index.css'
+import './index.css'
+import Title from "../Title"
 class Ratings extends React.Component {
 
 
@@ -11,30 +12,30 @@ class Ratings extends React.Component {
 
         return(
         <div>
-            <span class='tite'>Product Ratings</span>
-            <table>
-                <tr>
-                    <th>Rating</th>
+            <Title title="Product Ratings"></Title>
+            <table class='displayTable tableRow'>
+                <tr class='tableRow'>
+                    <th class='cell'>Rating</th>
                     <th>Quantity</th>
                 </tr>
-                <tr>
-                    <td>5</td>
+                <tr class='tableRow'>
+                    <td class='cell'>5</td>
                     <td>{fake.five}</td>
                 </tr>
-                <tr>
-                    <td>4-4.99</td>
+                <tr class='tableRow'>
+                    <td class='cell' >4-4.99</td>
                     <td>{fake.four}</td>
                 </tr>
-                <tr>
-                    <td>3-3.99</td>
+                <tr class='tableRow'>
+                    <td class='cell'>3-3.99</td>
                     <td>{fake.three}</td>
                 </tr>
-                <tr>
-                    <td>2-2.99</td>
+                <tr class='tableRow'>
+                    <td class='cell'>2-2.99</td>
                     <td>{fake.two}</td>
                 </tr>
-                <tr>
-                    <td>1-1.99</td>
+                <tr class='tableRow'>
+                    <td class='cell'>1-1.99</td>
                     <td>{fake.one}</td>
                 </tr>
             </table>
