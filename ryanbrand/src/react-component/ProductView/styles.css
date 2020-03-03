@@ -16,13 +16,12 @@ body {
 }
 
 .column {
-    display: inline-block;
     /*padding: 10px;*/
     height: 100%;
 }
 
 .left {
-    width: 40%;
+    flex: 40%;
     border-right: white;
     border-right-style: solid;
 }
@@ -35,7 +34,7 @@ body {
 }
 
 .right {
-    width: 60%;
+    flex: 60%;
     overflow: auto;
     overflow-x: hidden;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import "./styles.css"
 import { withRouter } from 'react-router-dom';
-import { checkFields } from "../../../actions/cart";
+import { checkFields } from "../../../actions/checkout";
 
 class CheckoutForm extends React.Component {
     render() {

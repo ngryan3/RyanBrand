@@ -1,6 +1,7 @@
 import React from "react";
 import './styles.css';
 import { withRouter } from 'react-router-dom';
+import { addToCartClick } from "../../../actions/cart";
 
 
 class Quantity extends React.Component {
@@ -24,7 +25,6 @@ class Quantity extends React.Component {
         console.log(this.state.quantity)
     };
 
-
     render() {
         const { detail } = this.props
         return (
@@ -35,7 +35,8 @@ class Quantity extends React.Component {
                     <button className="quantityButtonRight" onClick={ this.increment }>+</button>
                 </div>
                     <div className="buttonContainer">
-                        <button className="addToCartButton">Add to Cart</button>
+                        <button className="addToCartButton" onClick={addToCartClick.bind(this, detail,
+                            this.state.quantity)}>Add to Cart</button>
                     </div>
 
             </div>
