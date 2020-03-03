@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductTable from "../ProductTable"
-
+import './index.css'
 class MostPopular extends React.Component {
 
 
@@ -15,7 +15,7 @@ class MostPopular extends React.Component {
 
         return(
         <div>
-            <h1>List of most Popular Items</h1>
+            <span class="tite">List of most Popular Items</span>
             <ProductTable products={parsed} component={this}></ProductTable>
         </div>
         )

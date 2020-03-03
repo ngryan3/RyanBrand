@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../MostPopular/index.css'
 class Ratings extends React.Component {
 
 
@@ -11,7 +11,7 @@ class Ratings extends React.Component {
 
         return(
         <div>
-            <h1>Product Ratings</h1>
+            <span class='tite'>Product Ratings</span>
             <table>
                 <tr>
                     <th>Rating</th>
