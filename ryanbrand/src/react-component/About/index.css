@@ -21,6 +21,25 @@
     margin-top:10px;
 }
 
+.logoT {
+    width: 180px;
+    height: 180px;
+    margin-top: 25vh;
+    float:left;  
+}
+.logoF{
+    width: 100px;
+    height: 100px;
+    margin-top: 30vh;
+    float:left;  
+}
+.logoCh {
+    width: 100px;
+    margin-top: 30vh;
+    margin-left: 50px;
+    float:left;  
+}
+
 .ryan {
     float:right;
     margin-right: 10vw;
