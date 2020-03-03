@@ -6,16 +6,20 @@
 .quantityDisplay {
     width: 40px;
     text-align: center;
+    height: fit-content;
 }
 
 .quantityButtonRight {
     margin-top: 20px;
+    margin-left: 5px;
     border-radius: 0 3px 3px 0;
 }
 
 .buttonContainer {
     margin-top: 50px;
+    display: inline-block;
 }
+
 
 .addToCartButton {
     background-color: orange;

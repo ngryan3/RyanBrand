@@ -6,7 +6,7 @@ class TileContainer extends React.Component {
 
     render() {
         const { products } = this.props;
-        console.log(products)
+        console.log(this.props)
         return (
             <div className="tileContainer">
                 {products.map(product => (

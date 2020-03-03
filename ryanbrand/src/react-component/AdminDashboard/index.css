@@ -1,14 +1,28 @@
-.lel {
+.MainTab {
+    position: relative;
+    top: 10vh;
     width: 90vw;
-    height: 90vh;
+    height: 80vh;
     margin:auto;
     background-color: white;
 }
 
+.tabs:hover {
+    background-color: rgb(0,0,127);
+    border-color: rgb(0,0,127);
+}
 .hide{
     visibility:hidden;
 }
 
 .show{
     visibility: visible;
+}
+
+.displayTable{
+    margin-left: 10px;
+}
+
+table {
+    border-collapse:collapse;
 }

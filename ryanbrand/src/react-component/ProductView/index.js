@@ -25,7 +25,6 @@ class ProductView extends React.Component {
 
 
     render() {
-        const { items } =this.props;
         return(
             <body>
                 <NavigationBar/>
