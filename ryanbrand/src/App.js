@@ -10,6 +10,7 @@ import AdminView from './react-component/AdminDashboard'
 import Catalogue from './react-component/Catalogue'
 import About from './react-component/About'
 import Checkout  from "./react-component/Checkout";
+import Cart from "./react-component/Cart"
 
 
 class App extends React.Component {
@@ -24,6 +25,7 @@ class App extends React.Component {
                         <Route exact path='/admin' render={()=> (<AdminView/>)}/>
                         <Route exact path='/about' render={()=> (<About/>)}/>
                         <Route exact path='/checkout' render={() => (<Checkout/>)}/>
+                        <Route exact path='/cart' render={() => (<Cart/>)}/>
                     </Switch>
                 </BrowserRouter>
             </div>
