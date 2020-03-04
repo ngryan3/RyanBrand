@@ -16,7 +16,7 @@ On the catalogue page you can see items and click categories on the sidebar to c
 
 The about page has links to Ryan's social media.
 
-On the login/Register page you can make an account with credentials. You can use the button at the bottom to switch between login and register. Logging in does not redirect you currently.
+On the login/Register page you can make an account with credentials. You can use the button at the bottom to switch between login and register. You can login as an admin by switching at the bottom of the register/login page. Logging as a user prompts you. Logging in as an admin brings you to the admin page.
 
 You can login into a client account with credentials: username: user, password: user
 
