@@ -45,7 +45,6 @@ class AdminLogin extends React.Component {
                     <img className="login-logo" src={tempLogo} alt={"tempLogo"} />
                     <h1>Administrator</h1>
                     <div className="form-block">
-                        <label>Username:</label><br />
                         <input type="text" name="fusername" placeholder="Username" onChange={this.usernameChangeHandler}></input><br />
                     </div>
                     <div className="form-block">
