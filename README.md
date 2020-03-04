@@ -4,6 +4,10 @@
 https://trello.com/b/EsuXm2Hu/raw-ryan
 
 ## How to use our app:
+npm install
+npm start
+(inside of the ryanbrand folder)
+
 You can use the header to navigate to most pages on the app. This includes the home page, the catalogue, the about ryan page, the login/register page, and the cart page.
 
 On the home page, you can click the button in the middle to reach the catalogue.
