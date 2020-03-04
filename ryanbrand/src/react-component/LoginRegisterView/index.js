@@ -1,6 +1,6 @@
 import React from "react";
 import './styles.css';
-import { Component } from "react";
+import { Link } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import NavigationBar from "../NavigationBar";
@@ -31,11 +31,12 @@ class LoginView extends React.Component {
         return (
             <div>
                 <NavigationBar />
-            <div id="container-login">
-                
+            <div className="container-login">
                 {this.state.screen}
-                <button id="btn-login-register" onClick={(event) => this.handleClick(event)}>{this.state.buttonLabel}</button>
+                <button id="btn-login-register" onClick={(event) => this.handleClick(event)}>{this.state.buttonLabel}</button><br/>
+                <Link to="/admin-login">Login as admin</Link>
             </div>
+            
             </div>
         )
     }
