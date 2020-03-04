@@ -1,12 +1,13 @@
 import React from "react";
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import '../styles.css';
 import tempLogo from '../../../images/logo512.png';
+import NavigationBar from '../../NavigationBar';
 
-const testUsername = "user";
-const testPassword = "user";
+const testUsername = "admin";
+const testPassword = "admin";
 
-class Login extends React.Component {
+class AdminLogin extends React.Component {
     constructor(props) {
         super(props)
         this.state = { username: "", password: "", isLoggedIn: false};
@@ -38,23 +39,26 @@ class Login extends React.Component {
         }
         return (
             <div>
+                <NavigationBar/>
+                <div className="container-login">
                 <form className="login-form">
-                    <img id="login-logo" src={tempLogo} alt={"tempLogo"} />
-                    <h1>Welcome!</h1>
+                    <img className="login-logo" src={tempLogo} alt={"tempLogo"} />
+                    <h1>Administrator</h1>
                     <div className="form-block">
                         <label>Username:</label><br />
-                        <input type="text" id="fusername" name="fusername" onChange={this.usernameChangeHandler}></input><br />
+                        <input type="text" name="fusername" placeholder="Username" onChange={this.usernameChangeHandler}></input><br />
                     </div>
                     <div className="form-block">
-                        <label>Password: </label><br />
-                        <input type="text" id="fpassword" name="fpassword" onChange={this.passwordChangeHandler}></input><br />
+                        <input type="text" name="fpassword" placeholder="Password" onChange={this.passwordChangeHandler}></input><br />
                     </div>
-                    <button id="btn-login" onClick={(event) => this.handleClick(event)}>Submit</button><br />
-                    <p>Don't have an account? Click here to signup!</p><br />
+                    <button className="btn-login" onClick={(event) => this.handleClick(event)}>Submit</button><br />
+                    <Link to="/login">Login as user</Link>
+
                 </form>
+                </div>
             </div>
         )
     }
 }
 
-export default Login
+export default AdminLogin
