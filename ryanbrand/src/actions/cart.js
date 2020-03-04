@@ -4,7 +4,8 @@ export const removeItem = (cart, item) => {
     });
 
     cart.setState({
-        cart: filteredItems
+        cart: filteredItems,
+        total: cart.state.total - item.price
     })
 };
 

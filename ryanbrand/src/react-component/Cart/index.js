@@ -9,6 +9,7 @@ class Cart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            total: 50,
             cart: [
                 { name: "Product 1", quantity: 1, price: 10 },
                 { name: "Product 2", quantity: 3, price: 10},
@@ -18,6 +19,8 @@ class Cart extends React.Component {
         };
         this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
     }
+
+
     handleCheckoutClick() {
         window.location.href = './checkout'
     }
@@ -32,7 +35,7 @@ class Cart extends React.Component {
                         <ItemList cart={this.state.cart} cartComponent={this}/>
                     </div>
                     <div className="column right">
-                        <div className="priceText">Total: $50</div>
+                        <div className="priceText">Total: ${this.state.total}</div>
                         <button onClick={this.handleCheckoutClick}>Proceed To Checkout</button>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ import LoginView from './react-component/LoginRegisterView/'
 import About from './react-component/About'
 import Checkout from './react-component/Checkout'
 import Cart from "./react-component/Cart"
+import Home from "./react-component/Home"
 
 class App extends React.Component {
     render() {
@@ -20,7 +21,8 @@ class App extends React.Component {
                 <BrowserRouter> 
                     <Switch>
                         {/*Making catalogue as home page for testing*/}
-                        <Route exact path='/' render={()=> (<Catalogue/>)}/>
+                        <Route exact path='/' render={()=> (<Home/>)}/>
+                        <Route exact path='/catalogue' render={()=> (<Catalogue/>)}/>
                         <Route path='/product' render={() => (<ProductView/>)}/>
                         <Route exact path='/admin' render={()=> (<AdminView/>)}/>
                         <Route exact path='/login' render={()=> (<LoginView/>)}/>

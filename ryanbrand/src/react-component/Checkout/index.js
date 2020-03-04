@@ -30,13 +30,6 @@ class Checkout extends React.Component {
         });
     };
 
-    handleClick = event => {
-        console.log(this.state);
-        if (this.state.fullName === "") {
-            alert("missing required field")
-        }
-    };
-
     render() {
         return(
             <div>
