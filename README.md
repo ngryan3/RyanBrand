@@ -12,11 +12,11 @@ You can use the header to navigate to most pages on the app. This includes the h
 
 On the home page, you can click the button in the middle to reach the catalogue.
 
-On the catalogue page you can see items and click categories on the sidebar to change categories. You can also click on a product to see it's details. On the product detail page you can add quantity to add to your cart. Currently does not actually add to cart, as cart page is hard coded.
+On the catalogue page you can see items and in the future click categories on the sidebar to change categories. The products displayed dynamically increase with the number of products in the database. At this point in time, the product database is hardcoded. You can also click on a product to see it's details. On the product detail page you can add quantity to add to your cart. Currently does not actually add to cart, as cart page is hard coded.
 
 The about page has links to Ryan's social media.
 
-On the login/Register page you can make an account with credentials. You can use the button at the bottom to switch between login and register. You can login as an admin by switching at the bottom of the register/login page. Logging as a user prompts you. Logging in as an admin brings you to the admin page.
+On the login/Register page you can make an account with credentials. You can use the button at the bottom to switch between login and register. You can login as an admin by clicking on the link at the bottom of the register/login page. Logging ibn as a user prompts you. Logging in as an admin brings you to the admin page.
 
 You can login into a client account with credentials: username: user, password: user
 
