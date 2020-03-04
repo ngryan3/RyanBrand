@@ -12,7 +12,7 @@ You can use the header to navigate to most pages on the app. This includes the h
 
 On the home page, you can click the button in the middle to reach the catalogue.
 
-On the catalogue page you can see items and in the future click categories on the sidebar to change categories. The products displayed dynamically increase with the number of products in the database. At this point in time, the product database is hardcoded. You can also click on a product to see it's details. On the product detail page you can add quantity to add to your cart. Currently does not actually add to cart, as cart page is hard coded.
+On the catalogue page you can see items and click categories on the sidebar to change categories, however this functionality is not yet available. The products displayed dynamically increase with the number of products in the database. At this point in time, the product database is hardcoded. You can also click on a product to see it's details. On the product detail page you can add quantity to add to your cart. Currently does not actually add to cart, as cart page is hard coded.
 
 The about page has links to Ryan's social media.
 
