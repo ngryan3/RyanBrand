@@ -27,3 +27,28 @@ app.listen(port, () => {
     log(`Listening on port ${port}...`)
 }) ;
 
+// Handle find query errors
+const handleFindResponse = (findQueryResponse) => {
+	findQueryResponse
+		.then(result => log('Documents queried: ', result))
+		.catch((err) => log('Error fetching document(s): ', err))
+}
+
+// Handle update query errors
+const handleUpdateResponse = (updateQueryResponse) => {
+	updateQueryResponse
+		.then((result) => {
+			const { n, nModified } = result;
+			if (n && nModified) {
+				log(`Updated ${nModified} document(s).`)
+			}
+		})
+		.catch((err) => log('Error updating document: ', err))
+}
+
+// Handle delete query errors
+const handleDeleteResponse = (deleteQueryResponse) => {
+	deleteQueryResponse
+		.then(result => log(`Deleted ${result.deletedCount} item(s).`)) // .deletedCount has the number of documents removed
+		.catch(err => log('Error deleting document(s): ', err))
+}
