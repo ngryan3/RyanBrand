@@ -8,7 +8,7 @@ import NavigationBar from "../NavigationBar";
 
 class LoginView extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = { screen: [], isLogin: true, buttonLabel: "Register" };
     }
     componentWillMount() {
@@ -23,7 +23,7 @@ class LoginView extends React.Component {
             this.setState({ screen: newScreen, buttonLabel: "Login", isLogin: false })
         } else {
             let newScreen = [];
-            newScreen.push(<Login parentContext={this} />);
+            newScreen.push(<Login parentContext={this} app={this.props.app}/>);
             this.setState({ screen: newScreen, buttonLabel: "Register", isLogin: true })
         }
     }

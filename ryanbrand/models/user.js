@@ -21,8 +21,15 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		minlength: 6
-	}
-})
+	},
+	cart: [{
+		quantity: Number,
+		productInfo: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Product'
+		}
+	}]
+});
 
 // An example of Mongoose middleware.
 // This function will run immediately prior to saving the document

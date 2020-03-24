@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 // express-session for managing user sessions
 const session = require("express-session");
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cors({ origin: ["http://localhost:3000", "http://localhost:5000"] }));
 app.all("/*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -44,13 +45,30 @@ app.use(
     })
 );
 
+// Middleware for authentication of resources
+const authenticate = (req, res, next) => {
+    if (req.session.user) {
+        User.findById(req.session.user).then((user) => {
+            if (!user) {
+                return Promise.reject()
+            } else {
+                req.user = user
+                next()
+            }
+        }).catch((error) => {
+            res.status(401).send("Unauthorized")
+        })
+    } else {
+        res.status(401).send("Unauthorized")
+    }
+}
+
 /*** API User Routes below ************************************/
 // A route to login and create a session
 app.post("/users/login", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    log(email, password);
     // Use the static method on the User model to find a user
     // by their email and password
     User.findByEmailPassword(email, password)
@@ -62,7 +80,7 @@ app.post("/users/login", (req, res) => {
             res.send({ currentUser: user.email });
         })
         .catch(error => {
-            res.status(400).send()
+            res.status(400).send(error)
         });
 });
 
@@ -107,6 +125,33 @@ app.post("/users", (req, res) => {
     )
 });
 
+// Add product to user's cart
+app.post("/cart/:id", (req, res) => {
+    const id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send('not valid id');
+        return;
+    }
+    Product.findOne({name: req.body.name})
+        .then(prod => {
+            if (!prod) {
+                res.status(404).send()
+            } else {
+                User.findByIdAndUpdate(id, { $push: {cart: {quantity: req.body.quantity, productInfo: prod}}})
+                    .then(user => {
+                        if (!user) {
+                            res.status(404).send()
+                        } else {
+                            res.send(user)
+                        }
+                    })
+            }
+        })
+        .catch(error =>{
+            res.status(400).send(error)
+        })
+})
 /*** API Product Routes below ************************************/
 app.post("/products", (req, res) => {
     const product = new Product({
