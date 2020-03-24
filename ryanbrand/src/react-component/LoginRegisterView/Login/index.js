@@ -38,10 +38,10 @@ class Login extends React.Component {
                     <img className="login-logo" src={tempLogo} alt={"tempLogo"} />
                     <h1>Welcome!</h1>
                     <div className="form-block">
-                        <input type="text" name="fusername" placeholder="Username" onChange={this.usernameChangeHandler}></input><br />
+                        <input type="text" name="fusername" placeholder="Username" onChange={this.usernameChangeHandler}/><br />
                     </div>
                     <div className="form-block">
-                        <input type="text" name="fpassword" placeholder="Password" onChange={this.passwordChangeHandler}></input><br />
+                        <input type="text" name="fpassword" placeholder="Password" onChange={this.passwordChangeHandler}/><br />
                     </div>
                     <button className="btn-login" onClick={(event) => this.handleClick(event)}>Submit</button><br />
                     <p>Don't have an account? Click here to signup!</p><br />

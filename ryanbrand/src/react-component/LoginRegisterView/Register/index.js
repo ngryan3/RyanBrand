@@ -1,23 +1,26 @@
 import React from "react";
 import '../styles.css';
 import tempLogo from '../../../images/logo512.png';
+import { addUser } from "../../../actions/user";
 
 
 const usernames = ["username"]
 
 class Register extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { username: "", password: "" };
-    }
+    state = {
+        email: "",
+        password: ""
+    };
 
-    usernameChangeHandler = (event) => {
-        this.setState({ username: event.target.value });
-    }
+    handleInputChange = event => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
 
-    passwordChangeHandler = (event) => {
-        this.setState({ password: event.target.value });
-    }
+        this.setState({
+            [name]: value
+        });
+    };
 
     handleClick(event) {
         event.preventDefault();
@@ -41,20 +44,20 @@ class Register extends React.Component {
     render() {
         return (
             <div>
-                <form className="login-form">
+                <div className="login-form">
                     <img className="login-logo" src={tempLogo} alt={"tempLogo"} />
                     <h1>Welcome!</h1>
                     <div className="form-block">
                         {/* <label>Username:</label><br /> */}
-                        <input type="text" name="fusername" placeholder="Username" onChange={this.usernameChangeHandler}></input><br />
+                        <input type="text" name="email" onChange={this.handleInputChange}/><br />
                     </div>
                     <div className="form-block">
                         {/* <label>Password: </label><br /> */}
-                        <input type="text" name="fpassword" placeholder="Password" onChange={this.passwordChangeHandler}></input><br />
+                        <input type="text" name="password" onChange={this.handleInputChange} /><br />
                     </div>
-                    <button id="btn-login" onClick={(event) => this.handleClick(event)}>Submit</button><br />
+                    <button id="btn-login" onClick={() => addUser(this)}>Submit</button><br />
                     <p>Already have an account? Click here to login!</p><br />
-                </form>
+                </div>
             </div>
         )
     }

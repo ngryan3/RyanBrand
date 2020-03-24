@@ -23,7 +23,11 @@ const Product = mongoose.model('Product', {
         required: true,
         minlength: 1,
         trim: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
     }
-})
+});
 
-module.exports = { Product }
+module.exports = { Product };

@@ -55,13 +55,13 @@ class AdminView extends React.Component {
         
         const lst = component.state.users;
         for (let i = 0; i < lst.length; i++) {
-            if (lst[i].email == component.state.userEmail) {
+            if (lst[i].email === component.state.userEmail) {
                 this.fune("dupe user")
                 return
             }
         }
 
-        if(component.state.userName == "" || component.state.userEmail == "") {
+        if(component.state.userName === "" || component.state.userEmail === "") {
             this.fune("empty name or empty email")
             return
         }
@@ -81,13 +81,13 @@ class AdminView extends React.Component {
         //e.preventDefault();
         const lst = component.state.products;
         for (let i = 0; i < lst.length; i++) {
-            if (lst[i].name == component.state.productName) {
+            if (lst[i].name === component.state.productName) {
                 this.fune("dupe product " + lst[i].name)
                 return
             }
         }
 
-        if(component.state.productName == "" || component.state.productPrice == "") {
+        if(component.state.productName === "" || component.state.productPrice === "") {
             this.fune("empty name or empty price")
             return
         }
@@ -115,14 +115,14 @@ class AdminView extends React.Component {
     returner =() =>{
         return(
             <div class="MainTab">
-            <Title title="User List"></Title>
+            <Title title="User List"/>
             <UserForm 
                 userName={this.state.userName}
                 userEmail={this.state.userEmail}
                 handleChange={this.handleChange}
-                addUser={() => this.addUser(this)}></UserForm>
+                addUser={() => this.addUser(this)}/>
             <table class = "displayTable">
-                <UserTable users={this.state.users} component={this}></UserTable>
+                <UserTable users={this.state.users} component={this}/>
             </table>
             
         </div>
@@ -132,14 +132,10 @@ class AdminView extends React.Component {
     productse = () => {
         return(
             <div class="MainTab">
-            <Title title="Products List"></Title>
-            <ProductForm 
-                productName={this.state.productName}
-                productPrice={this.state.productPrice}
-                handleChange={this.handleChange}
-                addUser={() => this.addProduct(this)}></ProductForm>
+            <Title title="Products List"/>
+            <ProductForm/>
             <table class = "displayTable">
-                <ProductTable products={this.state.products} component={this}></ProductTable>
+                <ProductTable products={this.state.products} component={this}/>
             </table>
             
         </div>
@@ -149,8 +145,8 @@ class AdminView extends React.Component {
     stats = () => {
         return(
             <div class="MainTab">
-                <MostPopular component={this}></MostPopular>
-                <Ratings></Ratings>
+                <MostPopular component={this}/>
+                <Ratings/>
             </div>
         )
     }
@@ -158,9 +154,9 @@ class AdminView extends React.Component {
         return(
             <div>
                 <NavigationBar/>
-                <Tabs switcher={this.switchTab} component={this}></Tabs>
+                <Tabs switcher={this.switchTab} component={this}/>
 
-                {this.state.active == 1 ?  this.productse(): this.state.active == 2? this.stats():this.returner()}
+                {this.state.active === 1 ?  this.productse(): this.state.active === 2? this.stats():this.returner()}
             </div>
 
         )
