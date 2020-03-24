@@ -29,21 +29,12 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     }
-})
-
-//Mongoose middleware
-
-
-
-productSchema.statics.findByCategory = function(category){
-    return this.category({ category });
-}
-
-productSchema.statics.findByName = function(name) {
-    return this.find({ name })  
-};
-
-
+    // },
+    // createdAt: {
+    //     type: Date,
+    //     default: Date.now()
+    // }
+});
 
 const Product = mongoose.model('Product', productSchema)
 module.exports = { Product }

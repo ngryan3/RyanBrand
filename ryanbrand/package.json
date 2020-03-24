@@ -6,16 +6,16 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "latest",
+    "express": "latest",
+    "mongodb": "^3.3.4",
+    "mongoose": "^5.7.12",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.4.0",
     "react-uid": "^2.2.0",
-    "mongodb": "^3.3.4",
-    "mongoose": "^5.7.12",
-    "express": "latest",
-    "body-parser": "latest",
-    "validator": "^10.11.0",
-    "bcryptjs": "^2.4.3"
+    "validator": "^13.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,6 +39,8 @@
     ]
   },
   "devDependencies": {
+    "cors": "^2.8.5",
+    "express-session": "^1.17.0",
     "react-router-dom": "^5.1.2"
   }
 }

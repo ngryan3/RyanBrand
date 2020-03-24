@@ -14,8 +14,19 @@ import About from './react-component/About'
 import Checkout from './react-component/Checkout'
 import Cart from "./react-component/Cart"
 import Home from "./react-component/Home"
+import {readCookie} from "./actions/user";
+import Login from "./react-component/LoginRegisterView/Login";
+import Register from "./react-component/LoginRegisterView/Register";
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        readCookie(this);
+    }
+    state = {
+        currentUser: null
+    };
+
     render() {
         return (
             <div>
@@ -26,11 +37,18 @@ class App extends React.Component {
                         <Route exact path='/catalogue' render={()=> (<Catalogue/>)}/>
                         <Route path='/product' render={() => (<ProductView/>)}/>
                         <Route exact path='/admin' render={()=> (<AdminView/>)}/>
-                        <Route exact path='/login' render={()=> (<LoginView/>)}/>
+                        <Route exact path='/login' render={()=> (<Login app = {this}/>)}/>
+                        <Route exact path='/register' render={() => (<Register />)}/>
                         <Route exact path='/admin-login' render={()=> (<AdminLogin/>)}/>
                         <Route exact path='/about' render={()=> (<About/>)}/>
                         <Route exact path='/checkout' render={() => (<Checkout/>)}/>
-                        <Route exact path='/cart' render={() => (<Cart/>)}/>
+                        <Route exact path='/cart' render={() => (
+                            <div>
+                                {!this.state.currentUser ? <Login app={this}/> : <Cart app={this}/>}
+                            </div>
+                            )}
+                        />
+
                     </Switch>
                 </BrowserRouter>
             </div>

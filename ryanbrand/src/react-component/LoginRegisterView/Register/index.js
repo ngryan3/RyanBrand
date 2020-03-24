@@ -1,61 +1,59 @@
 import React from "react";
 import '../styles.css';
 import tempLogo from '../../../images/logo512.png';
+import { addUser } from "../../../actions/user";
+import NavigationBar from "../../NavigationBar";
+import {Link} from "react-router-dom";
 
-
-const usernames = ["username"]
 
 class Register extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { username: "", password: "" };
+    state = {
+        email: "",
+        password: ""
+    };
+
+    handleInputChange = event => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleOnClick = event => {
+        window.location.href = "/login"
     }
 
-    usernameChangeHandler = (event) => {
-        this.setState({ username: event.target.value });
-    }
-
-    passwordChangeHandler = (event) => {
-        this.setState({ password: event.target.value });
-    }
-
-    handleClick(event) {
-        event.preventDefault();
-        console.log(this.state.username);
-        console.log(this.state.password);
-        if (this.state.username === "") {
-            alert("Please enter a username.");
-        }
-        else if (this.state.password === "") {
-            alert("Please enter a password");
-        }
-        else if (usernames.includes(this.state.username)) {
-            alert("User is already registered!")
-
-        } else {
-            usernames.push(this.state.username)
-            alert("You are now registered.");
-        }
-    }
 
     render() {
         return (
             <div>
-                <form className="login-form">
-                    <img className="login-logo" src={tempLogo} alt={"tempLogo"} />
-                    <h1>Welcome!</h1>
-                    <div className="form-block">
-                        {/* <label>Username:</label><br /> */}
-                        <input type="text" name="fusername" placeholder="Username" onChange={this.usernameChangeHandler}></input><br />
+                <NavigationBar />
+                <div className="container-login">
+                    <div>
+                        <div className="login-form">
+                            <img className="login-logo" src={tempLogo} alt={"tempLogo"} />
+                            <h1>Welcome!</h1>
+                            <div className="form-block">
+                                {/* <label>Username:</label><br /> */}
+                                <input type="text" name="email" onChange={this.handleInputChange}/><br />
+                            </div>
+                            <div className="form-block">
+                                {/* <label>Password: </label><br /> */}
+                                <input type="text" name="password" onChange={this.handleInputChange} /><br />
+                            </div>
+                            <button id="btn-login" onClick={() => addUser(this)}>Submit</button><br />
+                            <p>Already have an account? Click here to login!</p><br />
+                        </div>
                     </div>
-                    <div className="form-block">
-                        {/* <label>Password: </label><br /> */}
-                        <input type="text" name="fpassword" placeholder="Password" onChange={this.passwordChangeHandler}></input><br />
-                    </div>
-                    <button id="btn-login" onClick={(event) => this.handleClick(event)}>Submit</button><br />
-                    <p>Already have an account? Click here to login!</p><br />
-                </form>
+                    <button id="btn-login-register" onClick={this.handleOnClick}>Login</button><br/>
+                    <Link to="/admin-login">Login as admin</Link>
+                </div>
+
             </div>
+
         )
     }
 }
