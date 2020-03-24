@@ -1,7 +1,8 @@
 /* Product mongoose model */
 const mongoose = require('mongoose')
 
-const Product = mongoose.model('Product', {
+// create product schema
+const productSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -23,6 +24,10 @@ const Product = mongoose.model('Product', {
         required: true,
         minlength: 1,
         trim: true
+    },
+    numInStock: {
+        type: Number,
+        required: true
     }
     // },
     // createdAt: {
@@ -31,4 +36,5 @@ const Product = mongoose.model('Product', {
     // }
 });
 
-module.exports = { Product };
+const Product = mongoose.model('Product', productSchema)
+module.exports = { Product }
