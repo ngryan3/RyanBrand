@@ -6,26 +6,22 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
 const UserSchema = new mongoose.Schema({
-	email: {
+	username: {
 		type: String,
 		required: true,
 		minlength: 1,
 		trim: true,
-		unique: true,
-		validate: {
-			validator: validator.isEmail,   // custom validator
-			message: 'Not valid email'
-		}
+		unique: true
 	}, 
 	password: {
 		type: String,
 		required: true,
-		minlength: 6
+		minlength: 4
 	},
 	cart: [{
 		quantity: Number,
 		productInfo: {
-			type: mongoose.Schema.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectID,
 			ref: 'Product'
 		}
 	}]
@@ -42,25 +38,25 @@ UserSchema.pre('save', function(next) {
 		// generate salt and hash the password
 		bcrypt.genSalt(10, (err, salt) => {
 			bcrypt.hash(user.password, salt, (err, hash) => {
-				user.password = hash
+				user.password = hash;
 				next()
 			})
 		})
 	} else {
 		next()
 	}
-})
+});
 
 
 
 // A static method on the document model.
 // Allows us to find a User document by comparing the hashed password
 //  to a given one, for example when logging in.
-UserSchema.statics.findByEmailPassword = function(email, password) {
-	const User = this // binds this to the User model
+UserSchema.statics.findByUsernamePassword = function(username, password) {
+	const User = this; // binds this to the User model
 
 	// First find the user by their email
-	return User.findOne({ email: email }).then((user) => {
+	return User.findOne({ username: username }).then((user) => {
 		if (!user) {
 			return Promise.reject()  // a rejected promise
 		}

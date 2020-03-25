@@ -21,13 +21,14 @@ import Register from "./react-component/LoginRegisterView/Register";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        readCookie(this);
+        // readCookie(this);
     }
     state = {
         currentUser: null
     };
 
     render() {
+        const { currentUser } = this.state;
         return (
             <div>
                 <BrowserRouter> 
@@ -37,14 +38,15 @@ class App extends React.Component {
                         <Route exact path='/catalogue' render={()=> (<Catalogue/>)}/>
                         <Route path='/product' render={() => (<ProductView/>)}/>
                         <Route exact path='/admin' render={()=> (<AdminView/>)}/>
-                        <Route exact path='/login' render={()=> (<Login app = {this}/>)}/>
+                        {/*<Route exact path='/login' render={({ history })=> (<Login history={history} app = {this}/>)}/>*/}
                         <Route exact path='/register' render={() => (<Register />)}/>
                         <Route exact path='/admin-login' render={()=> (<AdminLogin/>)}/>
                         <Route exact path='/about' render={()=> (<About/>)}/>
                         <Route exact path='/checkout' render={() => (<Checkout/>)}/>
-                        <Route exact path='/cart' render={() => (
+                        <Route exact path='/login' render={({ history }) => (<Login history={history} app={this}/>)}/>
+                        <Route exact path={['/cart']} render={({ history }) => (
                             <div>
-                                {!this.state.currentUser ? <Login app={this}/> : <Cart app={this}/>}
+                                {!currentUser ? <Login history={history} app={this}/> : <Cart history={history} app={this}/>}
                             </div>
                             )}
                         />

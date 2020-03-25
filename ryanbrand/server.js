@@ -1,6 +1,6 @@
 'use strict';
 const log = console.log;
-const cors = require('cors')
+const cors = require('cors');
 const express = require('express');
 // starting the express server
 const app = express();
@@ -53,7 +53,7 @@ const authenticate = (req, res, next) => {
             if (!user) {
                 return Promise.reject()
             } else {
-                req.user = user
+                req.user = user;
                 next()
             }
         }).catch((error) => {
@@ -68,18 +68,19 @@ const authenticate = (req, res, next) => {
 /*** API User Routes below ************************************/
 // A route to login and create a session
 app.post("/users/login", (req, res) => {
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
 
+    log(username, password);
     // Use the static method on the User model to find a user
     // by their email and password
-    User.findByEmailPassword(email, password)
+    User.findByUsernamePassword(username, password)
         .then(user => {
             // Add the user's id to the session cookie.
             // We can check later if this exists to ensure we are logged in.
             req.session.user = user._id;
-            req.session.email = user.email;
-            res.send({ currentUser: user.email });
+            req.session.username = user.username;
+            res.send({ currentUser: user.username });
         })
         .catch(error => {
             res.status(400).send(error)
@@ -93,15 +94,16 @@ app.get("/users/logout", (req, res) => {
         if (error) {
             res.status(500).send(error);
         } else {
-            res.send()
+            res.send('successful logout')
         }
     });
 });
 
 // A route to check if a use is logged in on the session cookie
 app.get("/users/check-session", (req, res) => {
+    console.log(req.session);
     if (req.session.user) {
-        res.send({ currentUser: req.session.email });
+        res.send({ currentUser: req.session.username });
     } else {
         res.status(401).send();
     }
@@ -111,10 +113,9 @@ app.get("/users/check-session", (req, res) => {
 app.post("/users", (req, res) => {
     // Create a new user
     const user = new User({
-        email: req.body.email,
+        username: req.body.username,
         password: req.body.password
     });
-
 
     // Save the user
     user.save().then(
@@ -320,24 +321,14 @@ app.patch('/students/:id', authenticate, (req, res) => {
 // a PATCH route for changing properties of a user
 // check if current user logged in
 
-// Middleware for authentication of user
-// const authenticate = (req, res, next) => {
-// 	if (req.session.user) {
-// 		User.findById(req.session.user).then((user) => {
-// 			if (!user) {
-// 				return Promise.reject()
-// 			} else {
-// 				req.user = user
-// 				next()
-// 			}
-// 		}).catch((error) => {
-// 			res.status(401).send("Unauthorized")
-// 		})
-// 	} else {
-// 		res.status(401).send("Unauthorized")
-// 	}
-// }
+/*** Webpage routes below **********************************/
+// Serve the build
+app.use(express.static(__dirname + "/client/build"));
 
+// All routes other than above will go to index.html
+app.get("*", (req, res) => {
+    res.sendFile(__dirname + "/client/build/index.html");
+});
 
 /*************************************************/
 // Express server listening...

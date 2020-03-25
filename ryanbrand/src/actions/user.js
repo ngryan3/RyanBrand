@@ -44,8 +44,8 @@ export const login = (loginComp, app) => {
         .then(json => {
             if (json.currentUser !== undefined) {
                 app.setState({ currentUser: json.currentUser });
-                console.log('login was successful')
-                console.log(app)
+                console.log('login was successful');
+                loginComp.props.history.push('/cart')
             }
         })
         .catch(error => {
@@ -94,6 +94,7 @@ export const addUser = (formComp) => {
             if (res.status === 200) {
                 console.log("Successfully added user");
                 alert("Successfully added user");
+                window.location.href = '/login';
             } else {
                 // If server couldn't add the student, tell the user.
                 // Here we are adding a generic message, but you could be more specific in your app.
@@ -104,13 +105,4 @@ export const addUser = (formComp) => {
         .catch(error => {
             console.log(error);
         });
-};
-
-export const updateUserForm = (formComp, field) => {
-    const value = field.value;
-    const name = field.name;
-
-    formComp.setState({
-        [name]: value
-    });
 };

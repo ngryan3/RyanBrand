@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 
 class Register extends React.Component {
     state = {
-        email: "",
+        username: "",
         password: ""
     };
 
@@ -38,7 +38,7 @@ class Register extends React.Component {
                             <h1>Welcome!</h1>
                             <div className="form-block">
                                 {/* <label>Username:</label><br /> */}
-                                <input type="text" name="email" onChange={this.handleInputChange}/><br />
+                                <input type="text" name="username" onChange={this.handleInputChange}/><br />
                             </div>
                             <div className="form-block">
                                 {/* <label>Password: </label><br /> */}
