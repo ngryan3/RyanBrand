@@ -153,7 +153,6 @@ app.post("/cart/:id", (req, res) => {
             res.status(400).send(error)
         })
 })
-/*** API Product Routes below ************************************/
 app.post("/products", (req, res) => {
     const product = new Product({
         name: req.body.name,
@@ -224,6 +223,22 @@ app.get('/products/:id', (req, res) => {
 	})
 })
 
+// a GET route to get a product by its category
+app.get('/products/category/:type', (req, res) => {
+	const category = req.params.type
+	log(category)
+	Product.findByCategory(category).then((result) => {
+		if (!result.length) {
+			res.status(404).send() // couldn't find product
+			return
+		} else {
+			res.send(result) // can wrap in object if want to add more properties
+		}
+	}).catch((error) => {
+		res.status(500).send() // server error
+	})
+})
+
 // a GET route to get a product by its name
 // app.get('/products/:name', (req, res) => {
 // 	const name = req.params.name
@@ -251,7 +266,27 @@ app.get('/users', (req, res) => {
 	})
 })
 
-// a GET route to a user by their email
+// a GET route to a user 
+app.get('/users/:id', authenticate, (req, res) => {
+	/// req.params has the wildcard parameters in the url, in this case, id.
+	// log(req.params.id)
+	const id = req.params.id
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
+		return;
+	}
+	User.findOne({_id: id}).then((user) => {
+		if (!user) {
+			res.status(404).send()
+		} else {
+			const email = user.email
+			const cart = user.cart
+			res.send({ email, cart })
+		}
+	}).catch((error) => {
+		res.status(500).send()
+	})
+})
 
 
 // a PATCH route for changing properties of a product
@@ -259,6 +294,25 @@ app.get('/users', (req, res) => {
 
 // a PATCH route for changing properties of a user
 // check if current user logged in
+
+// Middleware for authentication of user
+// const authenticate = (req, res, next) => {
+// 	if (req.session.user) {
+// 		User.findById(req.session.user).then((user) => {
+// 			if (!user) {
+// 				return Promise.reject()
+// 			} else {
+// 				req.user = user
+// 				next()
+// 			}
+// 		}).catch((error) => {
+// 			res.status(401).send("Unauthorized")
+// 		})
+// 	} else {
+// 		res.status(401).send("Unauthorized")
+// 	}
+// }
+
 
 /*************************************************/
 // Express server listening...

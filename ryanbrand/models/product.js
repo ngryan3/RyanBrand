@@ -36,5 +36,8 @@ const productSchema = new mongoose.Schema({
     // }
 });
 
+productSchema.statics.findByCategory = function(category){
+    return this.find({ category });
+}
 const Product = mongoose.model('Product', productSchema)
 module.exports = { Product }
