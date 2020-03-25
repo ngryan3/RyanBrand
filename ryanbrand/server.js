@@ -64,6 +64,7 @@ const authenticate = (req, res, next) => {
     }
 }
 
+
 /*** API User Routes below ************************************/
 // A route to login and create a session
 app.post("/users/login", (req, res) => {
@@ -196,7 +197,8 @@ app.delete("/products/:id", (req, res) => {
 // a GET route to get all products
 app.get('/products', (req, res) => {
 	Product.find().then((products) => {
-		res.send({ products }) // can wrap in object if want to add more properties
+		log('uwu')
+		res.send(products) // can wrap in object if want to add more properties
 	}, (error) => {
 		res.status(500).send(error) // server error
 	})
@@ -266,9 +268,8 @@ app.get('/users', (req, res) => {
 	})
 })
 
-// a GET route to a user 
+// a GET route to a user's cart? 
 app.get('/users/:id', authenticate, (req, res) => {
-	/// req.params has the wildcard parameters in the url, in this case, id.
 	// log(req.params.id)
 	const id = req.params.id
 	if (!ObjectID.isValid(id)) {
@@ -291,6 +292,30 @@ app.get('/users/:id', authenticate, (req, res) => {
 
 // a PATCH route for changing properties of a product
 // check if admin
+app.patch('/students/:id', authenticate, (req, res) => {
+	const id = req.params.id
+
+	// get the updated name and year only from the request body.
+	const { name, year } = req.body
+	const body = { name, year }
+
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()
+		return;
+	}
+
+	// Update the student by their id.
+	Student.findOneAndUpdate({_id: id, creator: req.user._id}, {$set: body}, {new: true}).then((student) => {
+		if (!student) {
+			res.status(404).send()
+		} else {   
+			res.send(student)
+		}
+	}).catch((error) => {
+		res.status(400).send() // bad request for changing the student.
+	})
+
+})
 
 // a PATCH route for changing properties of a user
 // check if current user logged in
