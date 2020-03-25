@@ -8,10 +8,11 @@ import {Link} from "react-router-dom";
 class Login extends React.Component {
     constructor(props) {
         super(props);
+        this.props.history.push("/login")
     }
 
     state = {
-        email: "",
+        username: "",
         password: ""
     };
 
@@ -29,24 +30,26 @@ class Login extends React.Component {
         window.location.href = "/register"
     };
 
+
     render() {
+        const { app } = this.props;
         return (
             <div>
                 <NavigationBar />
                 <div className="container-login">
                     <div>
-                        <form className="login-form">
+                        <div className="login-form">
                             <img className="login-logo" src={tempLogo} alt={"tempLogo"} />
                             <h1>Welcome!</h1>
                             <div className="form-block">
-                                <input type="text" name="email" placeholder="Username" onChange={this.handleInputChange}/><br />
+                                <input type="text" name="username" placeholder="Username" onChange={this.handleInputChange}/><br />
                             </div>
                             <div className="form-block">
                                 <input type="text" name="password" placeholder="Password" onChange={this.handleInputChange}/><br />
                             </div>
-                            <button className="btn-login" onClick={() => login(this, this.props.app)}>Submit</button><br />
+                            <button className="btn-login" onClick={() => login(this, app)}>Submit</button><br />
                             <p>Don't have an account? Click here to signup!</p><br />
-                        </form>
+                        </div>
                     </div>
                     <button id="btn-login-register" onClick={this.handleOnClick}>Register</button><br/>
                     <Link to="/admin-login">Login as admin</Link>
