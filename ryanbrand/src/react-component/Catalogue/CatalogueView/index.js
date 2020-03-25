@@ -1,12 +1,29 @@
 import React from "react";
 import './styles.css';
 import Tile from '../Tile'
+import { getAllProducts } from './../../../actions/product'
+const log = console.log
+
 
 class TileContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            isLoaded: false
+        }
+    }
+    componentDidMount() {
+        getAllProducts(this)
+        log(this.state)
+    }
 
     render() {
-        const { products } = this.props;
-        console.log(this.props)
+        let products = []
+        if (this.state.isLoaded === true){
+            products = this.state.data
+        }
+        console.log(products)
         return (
             <div className="tileContainer">
                 {products.map(product => (

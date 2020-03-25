@@ -1,3 +1,26 @@
+import ApiUrl from "../api/config"
+
+const log = console.log;
+
+export const getAllProducts = (allProductsComp) => {
+    // the URL for the request
+    const url = ApiUrl + "/products"
+    fetch(url)
+    .then((res) => {
+        if (res.status === 200){
+            log("successfully retrieved products");
+            return res.json()
+        } else {
+            alert('Could not get products');
+        }
+    }).then(json => {
+        log('owo')
+        allProductsComp.setState({ data: json, isLoaded: true})
+    }).catch(error => {
+        log(error);
+    })
+}
+
 export const addProduct = (formComp) => {
     // the URL for the request
     const url = "/products";
