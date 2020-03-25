@@ -42,5 +42,6 @@
     "cors": "^2.8.5",
     "express-session": "^1.17.0",
     "react-router-dom": "^5.1.2"
-  }
+  },
+  "proxy": "http://localhost:3000"
 }
