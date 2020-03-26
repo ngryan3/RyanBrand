@@ -19,7 +19,24 @@ export const getAllProducts = (allProductsComp) => {
     }).catch(error => {
         log(error);
     })
-}
+};
+
+export const getSpecificProduct = (productComp) => {
+    const url = ApiUrl + "/products/" + productComp.state.id;
+    fetch(url)
+        .then((res) => {
+        if (res.status === 200){
+            log("successfully loaded product");
+            return res.json()
+        } else {
+            alert('Could not get product');
+        }
+    }).then(json => {
+        productComp.setState({ name: json.name, price: json.price, description: json.description})
+    }).catch(error => {
+        log(error);
+    })
+};
 
 export const addProduct = (formComp) => {
     // the URL for the request

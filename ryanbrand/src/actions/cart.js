@@ -1,3 +1,5 @@
+import {readCookie} from "./user";
+
 export const removeItem = (cart, item) => {
     const filteredItems = cart.state.cart.filter(i => {
         return i !== item
@@ -9,7 +11,7 @@ export const removeItem = (cart, item) => {
     })
 };
 
-export const addToCartClick = (detail, quantity) => {
-    console.log(detail, quantity);
+export const addToCartClick = (detail, quantity, app) => {
+    console.log(detail, quantity, app);
     alert(quantity + " " + detail.name + " has been added to your cart");
 };

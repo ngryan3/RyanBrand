@@ -10,7 +10,7 @@ class Tile extends React.Component {
         // displays product view for item
         console.log(this.props);
         this.props.history.push({
-            pathname: '/product',
+            pathname: '/product' + '/' + this.props.product._id,
             state: this.props.product
         })
     };

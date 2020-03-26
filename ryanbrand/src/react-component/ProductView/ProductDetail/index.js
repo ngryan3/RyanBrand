@@ -6,8 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 class ProductDetail extends React.Component {
     render() {
-        console.log(this.props.history);
-        const product = this.props.history.location.state;
+        const { product } = this.props
         return (
             <div className="productDetailContainer">
                 <div className="productTitle">

@@ -20,12 +20,13 @@ class Cart extends React.Component {
             currentUser: null
         };
         this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
-        readCookie(this);
+        // readCookie(this);
         // if (this.state.currentUser === null) {
         //     this.props.history.push('/login')
         // } else {
         //     this.props.history.push("/cart");
         // }
+        this.props.history.push("/cart")
     }
 
     handleCheckoutClick() {

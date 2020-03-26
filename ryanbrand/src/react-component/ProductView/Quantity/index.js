@@ -7,7 +7,7 @@ import { addToCartClick } from "../../../actions/cart";
 class Quantity extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { quantity: 1 };
+        this.state = { quantity: 1, currentUser: null };
 
         this.increment = this.increment.bind(this);
         this.decrement = this.decrement.bind(this);
@@ -26,7 +26,7 @@ class Quantity extends React.Component {
     };
 
     render() {
-        const { detail } = this.props
+        const { detail } = this.props;
         return (
             <div className="quantityContainer">
                 <div>
@@ -36,7 +36,7 @@ class Quantity extends React.Component {
                 </div>
                     <div className="buttonContainer">
                         <button className="addToCartButton" onClick={addToCartClick.bind(this, detail,
-                            this.state.quantity)}>Add to Cart</button>
+                            this.state.quantity, this)}>Add to Cart</button>
                     </div>
 
             </div>

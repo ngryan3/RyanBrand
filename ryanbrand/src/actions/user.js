@@ -1,5 +1,5 @@
+import ApiUrl from '../api/config'
 // Functions to help with user actions
-import ApiUrl from "../api/config"
 // A function to check if a user is logged in on the session cookie
 export const readCookie = (app) => {
     const url = ApiUrl + "/users/check-session";
@@ -42,10 +42,10 @@ export const login = (loginComp, app) => {
             }
         })
         .then(json => {
+            console.log(json)
             if (json.currentUser !== undefined) {
                 app.setState({ currentUser: json.currentUser });
                 console.log('login was successful');
-                loginComp.props.history.push('/cart')
             }
         })
         .catch(error => {
@@ -70,7 +70,7 @@ export const logout = (app) => {
 
 export const addUser = (formComp) => {
     // the URL for the request
-    const url = ApiUrl + "/users";
+    const url = "/users";
 
     // The data we are going to send in our request
     const user = formComp.state;

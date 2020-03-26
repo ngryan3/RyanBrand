@@ -323,11 +323,11 @@ app.patch('/students/:id', authenticate, (req, res) => {
 
 /*** Webpage routes below **********************************/
 // Serve the build
-app.use(express.static(__dirname + "/client/build"));
+app.use(express.static(__dirname + "/build"));
 
 // All routes other than above will go to index.html
 app.get("*", (req, res) => {
-    res.sendFile(__dirname + "/client/build/index.html");
+    res.sendFile(__dirname + "/build/index.html");
 });
 
 /*************************************************/

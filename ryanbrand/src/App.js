@@ -21,7 +21,7 @@ import Register from "./react-component/LoginRegisterView/Register";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        // readCookie(this);
+        readCookie(this);
     }
     state = {
         currentUser: null
@@ -36,21 +36,22 @@ class App extends React.Component {
                         {/*Making catalogue as home page for testing*/}
                         <Route exact path='/' render={()=> (<Home/>)}/>
                         <Route exact path='/catalogue' render={()=> (<Catalogue/>)}/>
-                        <Route path='/product' render={() => (<ProductView/>)}/>
+                        <Route path='/product/:id' component={ProductView}/>
                         <Route exact path='/admin' render={()=> (<AdminView/>)}/>
                         {/*<Route exact path='/login' render={({ history })=> (<Login history={history} app = {this}/>)}/>*/}
                         <Route exact path='/register' render={() => (<Register />)}/>
                         <Route exact path='/admin-login' render={()=> (<AdminLogin/>)}/>
                         <Route exact path='/about' render={()=> (<About/>)}/>
                         <Route exact path='/checkout' render={() => (<Checkout/>)}/>
-                        <Route exact path='/login' render={({ history }) => (<Login history={history} app={this}/>)}/>
-                        <Route exact path={['/cart']} render={({ history }) => (
-                            <div>
-                                {!currentUser ? <Login history={history} app={this}/> : <Cart history={history} app={this}/>}
-                            </div>
+                        <Route
+                            exact path={['/login', '/cart']}
+                            render={({ history }) => (
+                                <div className="app">
+                                    {!currentUser ? <Login history={history} app={this}/> : <Cart history={history} app={this}/>}
+                                </div>
                             )}
                         />
-
+                        <Route render={() => <div>404 Not Found</div>}/>
                     </Switch>
                 </BrowserRouter>
             </div>
