@@ -13,6 +13,7 @@ mongoose.set('useFindAndModify', false); // for some deprecation issues
 
 const { User } = require("./models/user");
 const { Product } = require("./models/product");
+const { Admin } = require("./models/admin")
 
 // to validate object IDs
 const { ObjectID } = require('mongodb');
@@ -45,6 +46,24 @@ app.use(
         }
     })
 );
+
+// Middleware for authentication of admin
+const authenticate_admin = (req, res, next) => {
+    if (req.session.user) {
+        Admin.findById(req.session.user).then((user) => {
+            if (!user) {
+                return Promise.reject()
+            } else {
+                req.user = user;
+                next()
+            }
+        }).catch((error) => {
+            res.status(401).send("Unauthorized")
+        })
+    } else {
+        res.status(401).send("Unauthorized")
+    }
+}
 
 // Middleware for authentication of resources
 const authenticate = (req, res, next) => {
@@ -291,35 +310,69 @@ app.get('/users/:id', authenticate, (req, res) => {
 })
 
 
-// a PATCH route for changing properties of a product
-// check if admin
-app.patch('/students/:id', authenticate, (req, res) => {
-	const id = req.params.id
+//---Admin routes---//
 
-	// get the updated name and year only from the request body.
-	const { name, year } = req.body
-	const body = { name, year }
+// A route to create a new admin
+app.post("/admins", (req, res) => {
+    // Create a new user
+    const admin = new Admin({
+        username: req.body.username,
+        password: req.body.password
+    });
 
-	if (!ObjectID.isValid(id)) {
-		res.status(404).send()
-		return;
-	}
+    // Save the user
+    admin.save().then(
+        admin => {
+            res.send(admin);
+        },
+        error => {
+            res.status(400).send(error);
+        }
+    )
+});
 
-	// Update the student by their id.
-	Student.findOneAndUpdate({_id: id, creator: req.user._id}, {$set: body}, {new: true}).then((student) => {
-		if (!student) {
-			res.status(404).send()
-		} else {   
-			res.send(student)
-		}
-	}).catch((error) => {
-		res.status(400).send() // bad request for changing the student.
-	})
+// A route to check if an admin is logged in on the session cookie
+app.get("/admins/check-session", (req, res) => {
+    console.log(req.session);
+    if (req.session.user) {
+        res.send({ currentUser: req.session.username });
+    } else {
+        res.status(401).send();
+    }
+});
 
-})
+// A route to login an admin
+app.post("/users/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
 
-// a PATCH route for changing properties of a user
-// check if current user logged in
+    log(username, password);
+    // Use the static method on the User model to find a user
+    // by their email and password
+    Admin.findByUsernamePassword(username, password)
+        .then(user => {
+            // Add the user's id to the session cookie.
+            // We can check later if this exists to ensure we are logged in.
+            req.session.user = user._id;
+            req.session.username = user.username;
+            res.send({ currentUser: user.username });
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        });
+});
+
+// A route to logout an admin
+app.get("/admins/logout", (req, res) => {
+    // Remove the session
+    req.session.destroy(error => {
+        if (error) {
+            res.status(500).send(error);
+        } else {
+            res.send('successful logout')
+        }
+    });
+});
 
 /*** Webpage routes below **********************************/
 // Serve the build
