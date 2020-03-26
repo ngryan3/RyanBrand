@@ -40,7 +40,7 @@ AdminSchema.pre('save', function(next) {
 // A static method on the document model.
 // Allows us to find a Admin document by comparing the hashed password
 //  to a given one, for example when logging in.
-AdminSchema.statics.findByAdminnamePassword = function(Adminname, password) {
+AdminSchema.statics.findByUsernamePassword = function(username, password) {
 	const Admin = this; // binds this to the Admin model
 
 	// First find the Admin by their email
