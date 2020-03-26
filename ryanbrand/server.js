@@ -174,16 +174,18 @@ app.post("/cart/:id", (req, res) => {
             res.status(400).send(error)
         })
 })
-app.post("/products", (req, res) => {
+
+// a route to add products to website
+app.post("/products", authenticate_admin,(req, res) => {
     const product = new Product({
         name: req.body.name,
         price: req.body.price,
         description: req.body.description,
-        category: req.body.category
+        category: req.body.category,
+        numInStock: req.body.numInStock
     });
 
-    product.save().then(
-        result => {
+    product.save().then((result) => {
             res.send(result);
         },
         error => {
