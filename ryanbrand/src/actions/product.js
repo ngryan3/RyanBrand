@@ -1,10 +1,9 @@
 import ApiUrl from "../api/config"
-
 const log = console.log;
 
 export const getAllProducts = (allProductsComp) => {
     // the URL for the request
-    const url = ApiUrl + "/products"
+    const url = ApiUrl + "/products";
     fetch(url)
     .then((res) => {
         if (res.status === 200){

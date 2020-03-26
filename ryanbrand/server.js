@@ -62,7 +62,7 @@ const authenticate = (req, res, next) => {
     } else {
         res.status(401).send("Unauthorized")
     }
-}
+};
 
 
 /*** API User Routes below ************************************/
@@ -80,7 +80,7 @@ app.post("/users/login", (req, res) => {
             // We can check later if this exists to ensure we are logged in.
             req.session.user = user._id;
             req.session.username = user.username;
-            res.send({ currentUser: user.username });
+            res.send({ currentUser: user._id });
         })
         .catch(error => {
             res.status(400).send(error)
@@ -154,7 +154,7 @@ app.post("/cart/:id", (req, res) => {
         .catch(error =>{
             res.status(400).send(error)
         })
-})
+});
 app.post("/products", (req, res) => {
     const product = new Product({
         name: req.body.name,
@@ -323,12 +323,12 @@ app.patch('/students/:id', authenticate, (req, res) => {
 
 /*** Webpage routes below **********************************/
 // Serve the build
-app.use(express.static(__dirname + "/build"));
-
-// All routes other than above will go to index.html
-app.get("*", (req, res) => {
-    res.sendFile(__dirname + "/build/index.html");
-});
+// app.use(express.static(__dirname + "/build"));
+//
+// // All routes other than above will go to index.html
+// app.get("*", (req, res) => {
+//     res.sendFile(__dirname + "/build/index.html");
+// });
 
 /*************************************************/
 // Express server listening...

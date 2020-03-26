@@ -2,7 +2,7 @@ import React from 'react';
 import "./styles.css"
 import NavigationBar from "../NavigationBar";
 import ProductDetail from "./ProductDetail";
-import logo from '../../logo.svg'
+import logo from '../../logo.svg';
 import {getSpecificProduct} from "../../actions/product";
 
 class ProductView extends React.Component {
@@ -35,6 +35,7 @@ class ProductView extends React.Component {
 
 
     render() {
+        const { app } = this.props;
         return(
             <body>
                 <NavigationBar/>
@@ -43,7 +44,7 @@ class ProductView extends React.Component {
                         <img  src={logo}/>
                     </div>
                     <div className="column right">
-                        <ProductDetail product={this.state}/>
+                        <ProductDetail product={this.state} app={app}/>
                     </div>
                 </div>
             </body>

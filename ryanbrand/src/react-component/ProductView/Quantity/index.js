@@ -26,7 +26,8 @@ class Quantity extends React.Component {
     };
 
     render() {
-        const { detail } = this.props;
+        const { detail, app } = this.props;
+        console.log(detail, app)
         return (
             <div className="quantityContainer">
                 <div>
@@ -36,7 +37,7 @@ class Quantity extends React.Component {
                 </div>
                     <div className="buttonContainer">
                         <button className="addToCartButton" onClick={addToCartClick.bind(this, detail,
-                            this.state.quantity, this)}>Add to Cart</button>
+                            app)}>Add to Cart</button>
                     </div>
 
             </div>

@@ -1,4 +1,5 @@
-import ApiUrl from '../api/config'
+import ApiUrl from "../api/config"
+
 // Functions to help with user actions
 // A function to check if a user is logged in on the session cookie
 export const readCookie = (app) => {
@@ -70,7 +71,7 @@ export const logout = (app) => {
 
 export const addUser = (formComp) => {
     // the URL for the request
-    const url = "/users";
+    const url = ApiUrl + "/users";
 
     // The data we are going to send in our request
     const user = formComp.state;

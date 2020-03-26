@@ -24,7 +24,7 @@ class App extends React.Component {
         readCookie(this);
     }
     state = {
-        currentUser: null
+        currentUser: "5e7baf69504cc14b6820b6ce"
     };
 
     render() {
@@ -36,7 +36,7 @@ class App extends React.Component {
                         {/*Making catalogue as home page for testing*/}
                         <Route exact path='/' render={()=> (<Home/>)}/>
                         <Route exact path='/catalogue' render={()=> (<Catalogue/>)}/>
-                        <Route path='/product/:id' component={ProductView}/>
+                        <Route path='/product/:id' render={(matchProps) => (<ProductView {...matchProps} app={this}/>)}/>
                         <Route exact path='/admin' render={()=> (<AdminView/>)}/>
                         {/*<Route exact path='/login' render={({ history })=> (<Login history={history} app = {this}/>)}/>*/}
                         <Route exact path='/register' render={() => (<Register />)}/>
