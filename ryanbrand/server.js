@@ -342,7 +342,7 @@ app.get("/admins/check-session", (req, res) => {
 });
 
 // A route to login an admin
-app.post("/users/login", (req, res) => {
+app.post("/admin/login", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
@@ -350,12 +350,12 @@ app.post("/users/login", (req, res) => {
     // Use the static method on the User model to find a user
     // by their email and password
     Admin.findByUsernamePassword(username, password)
-        .then(user => {
+        .then(admin => {
             // Add the user's id to the session cookie.
             // We can check later if this exists to ensure we are logged in.
-            req.session.user = user._id;
-            req.session.username = user.username;
-            res.send({ currentUser: user.username });
+            req.session.user = admin._id;
+            req.session.username = admin.username;
+            res.send({ currentUser: admin.username });
         })
         .catch(error => {
             res.status(400).send(error)

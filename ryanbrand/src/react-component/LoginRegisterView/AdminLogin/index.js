@@ -3,57 +3,48 @@ import {Redirect, Link} from 'react-router-dom';
 import '../styles.css';
 import tempLogo from '../../../images/logo512.png';
 import NavigationBar from '../../NavigationBar';
+import { adminLogin } from "../../../actions/admin";
 
-const testUsername = "admin";
-const testPassword = "admin";
 
 class AdminLogin extends React.Component {
     constructor(props) {
-        super(props)
-        this.state = { username: "", password: "", isLoggedIn: false};
+        super(props);
+        this.props.history.push("/admin-login")
     }
 
-    usernameChangeHandler = (event) => {
-        this.setState({ username: event.target.value });
-    }
+    state = {
+        username: "",
+        password: ""
+    };
 
-    passwordChangeHandler = (event) => {
-        this.setState({ password: event.target.value });
-    }
+    handleInputChange = event => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
 
-    handleClick(event) {
-        event.preventDefault();
-        console.log(this.state.username);
-        console.log(this.state.password);
-        if (testUsername === this.state.username && testPassword === this.state.password) {
-            this.setState({isLoggedIn: true});
-
-        } else {
-            alert("Username and password do not match!");
-        }
-    }
+        this.setState({
+            [name]: value
+        });
+    };
 
     render() {
-        if (this.state.isLoggedIn) {
-            return <Redirect to={"/admin"}/>
-        }
+        const { app } = this.props;
         return (
             <div>
                 <NavigationBar/>
                 <div className="container-login">
-                <form className="login-form">
-                    <img className="login-logo" src={tempLogo} alt={"tempLogo"} />
-                    <h1>Administrator</h1>
-                    <div className="form-block">
-                        <input type="text" name="fusername" placeholder="Username" onChange={this.usernameChangeHandler}></input><br />
+                    <div className="login-form">
+                        <img className="login-logo" src={tempLogo} alt={"tempLogo"} />
+                        <h1>Administrator</h1>
+                        <div className="form-block">
+                            <input type="text" name="username" placeholder="Username" onChange={this.handleInputChange}/><br />
+                        </div>
+                        <div className="form-block">
+                            <input type="text" name="password" placeholder="Password" onChange={this.handleInputChange}/><br />
+                        </div>
+                        <button className="btn-login" onClick={() => adminLogin(this, app)}>Submit</button><br />
+                        <Link to="/login">Login as user</Link>
                     </div>
-                    <div className="form-block">
-                        <input type="text" name="fpassword" placeholder="Password" onChange={this.passwordChangeHandler}></input><br />
-                    </div>
-                    <button className="btn-login" onClick={(event) => this.handleClick(event)}>Submit</button><br />
-                    <Link to="/login">Login as user</Link>
-
-                </form>
                 </div>
             </div>
         )

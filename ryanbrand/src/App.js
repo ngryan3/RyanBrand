@@ -24,7 +24,7 @@ class App extends React.Component {
         readCookie(this);
     }
     state = {
-        currentUser: "5e7baf69504cc14b6820b6ce"
+        currentUser: null
     };
 
     render() {
@@ -37,10 +37,16 @@ class App extends React.Component {
                         <Route exact path='/' render={()=> (<Home/>)}/>
                         <Route exact path='/catalogue' render={()=> (<Catalogue/>)}/>
                         <Route path='/product/:id' render={(matchProps) => (<ProductView {...matchProps} app={this}/>)}/>
-                        <Route exact path='/admin' render={()=> (<AdminView/>)}/>
                         {/*<Route exact path='/login' render={({ history })=> (<Login history={history} app = {this}/>)}/>*/}
                         <Route exact path='/register' render={() => (<Register />)}/>
-                        <Route exact path='/admin-login' render={()=> (<AdminLogin/>)}/>
+                        <Route
+                            exact path={['/admin', '/admin-login']}
+                            render={({ history }) => (
+                                <div className="app">
+                                    {!currentUser ? <AdminLogin history={history} app={this}/> : <AdminView history={history} app={this}/>}
+                                </div>
+                            )}
+                        />
                         <Route exact path='/about' render={()=> (<About/>)}/>
                         <Route exact path='/checkout' render={() => (<Checkout/>)}/>
                         <Route
