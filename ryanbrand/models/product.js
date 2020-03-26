@@ -24,11 +24,11 @@ const productSchema = new mongoose.Schema({
         required: true,
         minlength: 1,
         trim: true
-    },
-    numInStock: {
-        type: Number,
-        required: true
     }
+    // numInStock: {
+    //     type: Number,
+    //     required: true
+    // }
     // },
     // createdAt: {
     //     type: Date,
