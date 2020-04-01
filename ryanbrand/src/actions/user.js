@@ -2,23 +2,8 @@ import ApiUrl from "../api/config"
 
 // Functions to help with user actions
 // A function to check if a user is logged in on the session cookie
-export const readCookie = (app) => {
-    const url = ApiUrl + "/users/check-session";
-
-    fetch(url)
-        .then(res => {
-            if (res.status === 200) {
-                return res.json();
-            }
-        })
-        .then(json => {
-            if (json && json.currentUser) {
-                app.setState({ currentUser: json.currentUser });
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        });
+export const readStorage = (app) => {
+    app.state.currentUser = localStorage.getItem('currentUser');
 };
 
 // A function to send a POST request with the user to be logged in
@@ -40,13 +25,16 @@ export const login = (loginComp, app) => {
         .then(res => {
             if (res.status === 200) {
                 return res.json()
+            } else {
+                alert('Please try a different username or password')
             }
         })
         .then(json => {
-            console.log(json)
+            console.log(json);
             if (json.currentUser !== undefined) {
                 app.setState({ currentUser: json.currentUser });
                 console.log('login was successful');
+                localStorage.setItem('currentUser', json.currentUser);
             }
         })
         .catch(error => {
@@ -55,18 +43,9 @@ export const login = (loginComp, app) => {
 };
 
 export const logout = (app) => {
-    const url = "/users/logout";
-
-    fetch(url)
-        .then(res => {
-            app.setState({
-                currentUser: null,
-                message: { type: "", body: "" }
-            });
-        })
-        .catch(error => {
-            console.log(error);
-        });
+    localStorage.removeItem('currentUser');
+    app.state.currentUser = null;
+    console.log(app.state.currentUser)
 };
 
 export const addUser = (formComp) => {

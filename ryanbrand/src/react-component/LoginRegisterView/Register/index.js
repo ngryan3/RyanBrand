@@ -28,9 +28,10 @@ class Register extends React.Component {
 
 
     render() {
+        const { app } = this.props
         return (
             <div>
-                <NavigationBar />
+                <NavigationBar app={app}/>
                 <div className="container-login">
                     <div>
                         <div className="login-form">

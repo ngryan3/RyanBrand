@@ -146,6 +146,25 @@ app.post("/users", (req, res) => {
         }
     )
 });
+// Get all products from user's cart
+app.get("/cart/:id", (req, res) => {
+    const id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send(); // can't find product
+        return;
+    }
+    User.findById(id).then((user) => {
+        if (!user) {
+            res.status(404).send()
+        } else {
+            res.send(user.cart)
+        }
+    }).catch((error) => {
+        res.status(500).send(error)
+    })
+
+});
 
 // Add product to user's cart
 app.post("/cart/:id", (req, res) => {
@@ -160,12 +179,39 @@ app.post("/cart/:id", (req, res) => {
             if (!prod) {
                 res.status(404).send()
             } else {
-                User.findByIdAndUpdate(id, { $push: {cart: {quantity: req.body.quantity, productInfo: prod}}})
+                const product = {
+                    _id: prod._id,
+                    name: prod.name,
+                    quantity: req.body.quantity,
+                    price: prod.price
+                };
+                User.findById(id)
                     .then(user => {
-                        if (!user) {
-                            res.status(404).send()
+                        if(!user) {
+                            res.status(404).send('not a user')
                         } else {
-                            res.send(user)
+                            // Checking for duplicate products
+                            if (user.cart.id(prod._id) === null) {
+                                user.cart.push(product);
+                                user.save().then (
+                                    result => {
+                                        res.send({product: product, user: result})
+                                    }, error => {
+                                        res.status(400).send(error)
+                                    }
+                                )
+                            } else {
+                                const cart_item = user.cart.id(prod._id);
+                                cart_item.quantity += req.body.quantity;
+                                user.save().then (
+                                    result => {
+                                        res.send({product: product, user: result})
+                                    }, error => {
+                                        res.status(400).send(error)
+                                    }
+                                )
+                            }
+
                         }
                     })
             }
@@ -174,6 +220,36 @@ app.post("/cart/:id", (req, res) => {
             res.status(400).send(error)
         })
 });
+
+app.delete("/cart/:id/:prod_id", (req, res) => {
+    const id = req.params.id;
+    const prod_id = req.params.prod_id;
+
+    if (!ObjectID.isValid(id) || !ObjectID.isValid(prod_id)) {
+        res.status(404).send();
+        return;
+    }
+
+    User.findById(id)
+        .then(user => {
+            if (!user) {
+                res.status(404).send()
+            } else {
+                const item = user.cart.id(prod_id);
+                user.cart.id(prod_id).remove();
+                user.save().then (
+                    result => {
+                        res.send({user: result, item: item})
+                    },
+                    error => {
+                        res.status(400).send(error)
+                    }
+                )
+            }
+        })
+
+});
+
 app.post("/products", (req, res) => {
     const product = new Product({
         name: req.body.name,

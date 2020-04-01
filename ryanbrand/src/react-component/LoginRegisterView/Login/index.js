@@ -35,7 +35,7 @@ class Login extends React.Component {
         const { app } = this.props;
         return (
             <div>
-                <NavigationBar />
+                <NavigationBar app={app}/>
                 <div className="container-login">
                     <div>
                         <div className="login-form">

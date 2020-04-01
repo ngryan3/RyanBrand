@@ -5,6 +5,21 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 
+const CartProductSchema = new mongoose.Schema({
+	name: {
+		type: String,
+		required: true
+	},
+	quantity: {
+		type: Number,
+		required: true
+	},
+	price: {
+		type: Number,
+		required: true
+	}
+});
+
 const UserSchema = new mongoose.Schema({
 	username: {
 		type: String,
@@ -18,13 +33,7 @@ const UserSchema = new mongoose.Schema({
 		required: true,
 		minlength: 4
 	},
-	cart: [{
-		quantity: Number,
-		productInfo: {
-			type: mongoose.Schema.Types.ObjectID,
-			ref: 'Product'
-		}
-	}]
+	cart: [CartProductSchema]
 });
 
 // An example of Mongoose middleware.

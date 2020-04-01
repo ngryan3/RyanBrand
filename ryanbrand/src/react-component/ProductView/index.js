@@ -38,7 +38,7 @@ class ProductView extends React.Component {
         const { app } = this.props;
         return(
             <body>
-                <NavigationBar/>
+                <NavigationBar app={app}/>
                 <div className="product">
                     <div className="column left">
                         <img  src={logo}/>
