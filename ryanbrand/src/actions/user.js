@@ -12,8 +12,9 @@ export const readCookie = (app) => {
             }
         })
         .then(json => {
+            console.log(json);
             if (json && json.currentUser) {
-                app.setState({ currentUser: json.currentUser });
+                app.setState({ currentUser: json.currentUser, userType: json.userType });
             }
         })
         .catch(error => {
@@ -47,7 +48,7 @@ export const login = (loginComp, app) => {
         .then(json => {
             console.log(json);
             if (json.currentUser !== undefined) {
-                app.setState({ currentUser: json.currentUser });
+                app.setState({ currentUser: json.currentUser, userType: "normie" });
                 console.log('login was successful');
             }
         })

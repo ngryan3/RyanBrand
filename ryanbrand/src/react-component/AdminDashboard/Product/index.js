@@ -1,5 +1,6 @@
 import React from 'react';
 import '../User/index.css'
+import {removeProduct} from "../../../actions/product";
 
 class Product extends React.Component {
     
@@ -9,18 +10,10 @@ class Product extends React.Component {
 
     }
 
-    remover = (component, product) => {
-        const filtere = component.state.products.filter(p => {
-            return p !== product
-        })
-
-        component.setState({
-            products: filtere
-        })
-    }
     
     render() {
-        const {product, component} = this.props;
+        const {product, list} = this.props;
+        console.log(product, list)
 
         return(
         <div class="roew">
@@ -31,14 +24,11 @@ class Product extends React.Component {
             <td class="second">
                 {product.price}
             </td>
-            <td class="clicks">
-                {product.clicks}
+            <td class="third">
+                <img src={product.image} class="productImage" alt="failed to load image"/>
             </td>
             <td class="third">
-                <img src={product.image} class="productImage" alt="failed to load image"></img>
-            </td>
-            <td class="third">
-                <button onClick={this.remover.bind(this, component, product)}>remove</button>
+                <button onClick={() => removeProduct(list, product)}>remove</button>
             </td>
             <td class="third">
                 <button onClick={() => this.fun()}>edit</button>

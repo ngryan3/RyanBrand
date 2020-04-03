@@ -56,7 +56,7 @@ export const addProduct = (formComp) => {
     });
 
     // Send the request with fetch()
-    fetch(request)
+    fetch(request, {credentials: 'include'})
         .then(function (res) {
             // Handle response we get from the API.
             // Usually check the error codes to see what happened.
@@ -72,4 +72,34 @@ export const addProduct = (formComp) => {
         .catch(error => {
             console.log(error);
         });
+};
+
+export const removeProduct = (productListComp, product) => {
+    const filteredItems = productListComp.state.data.filter(i => {
+        return i !== product
+    });
+
+    console.log(productListComp, product)
+
+    productListComp.setState({
+        data: filteredItems,
+    });
+
+    const url = ApiUrl + "/products/" + product._id;
+    const request = new Request(url, {
+        method: "delete",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+    fetch(request, {credentials: 'include'})
+        .then(function (res) {
+            if (res.status === 200) {
+                console.log('product was removed from database');
+                alert(product.name + " was removed from your cart")
+            } else {
+                console.log('failed to remove product from database')
+            }
+        })
 };

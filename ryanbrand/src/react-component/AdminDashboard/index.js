@@ -137,7 +137,7 @@ class AdminView extends React.Component {
             <Title title="Products List"/>
             <ProductForm/>
             <table class = "displayTable">
-                <ProductTable products={this.state.products} component={this}/>
+                <ProductTable products={this.state.products}/>
             </table>
             
         </div>
