@@ -6,7 +6,7 @@ import { logout } from "../../actions/user";
 
 class NavigationBar extends React.Component {
     render() {
-        const { app } = this.props
+        const { app } = this.props;
         return (
             <header>
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>

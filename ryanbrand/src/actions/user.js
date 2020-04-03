@@ -2,8 +2,23 @@ import ApiUrl from "../api/config"
 
 // Functions to help with user actions
 // A function to check if a user is logged in on the session cookie
-export const readStorage = (app) => {
-    app.state.currentUser = localStorage.getItem('currentUser');
+export const readCookie = (app) => {
+    const url =  ApiUrl + "/users/check-session";
+
+    fetch(url, {credentials: 'include'})
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then(json => {
+            if (json && json.currentUser) {
+                app.setState({ currentUser: json.currentUser });
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
 };
 
 // A function to send a POST request with the user to be logged in
@@ -21,7 +36,7 @@ export const login = (loginComp, app) => {
     });
 
     // Send the request with fetch()
-    fetch(request)
+    fetch(request, {credentials: 'include'})
         .then(res => {
             if (res.status === 200) {
                 return res.json()
@@ -34,7 +49,6 @@ export const login = (loginComp, app) => {
             if (json.currentUser !== undefined) {
                 app.setState({ currentUser: json.currentUser });
                 console.log('login was successful');
-                localStorage.setItem('currentUser', json.currentUser);
             }
         })
         .catch(error => {
@@ -42,10 +56,19 @@ export const login = (loginComp, app) => {
         });
 };
 
+
 export const logout = (app) => {
-    localStorage.removeItem('currentUser');
-    app.state.currentUser = null;
-    console.log(app.state.currentUser)
+    const url = ApiUrl + "/users/logout";
+
+    fetch(url, {credentials: "include"})
+        .then(res => {
+            app.setState({
+                currentUser: null,
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
 };
 
 export const addUser = (formComp) => {
@@ -86,3 +109,15 @@ export const addUser = (formComp) => {
             console.log(error);
         });
 };
+
+// Backup if session doesn't work anymore
+
+// export const readStorage = (app) => {
+//     app.state.currentUser = localStorage.getItem('currentUser');
+// };
+//
+// export const logout = (app) => {
+//     localStorage.removeItem('currentUser');
+//     app.state.currentUser = null;
+//     console.log(app.state.currentUser)
+// };

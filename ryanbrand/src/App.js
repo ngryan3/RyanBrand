@@ -8,20 +8,21 @@ import './App.css';
 import ProductView from './react-component/ProductView'
 import AdminView from './react-component/AdminDashboard'
 import Catalogue from './react-component/Catalogue'
-import LoginView from './react-component/LoginRegisterView/'
 import AdminLogin from './react-component/LoginRegisterView/AdminLogin'
 import About from './react-component/About'
 import Checkout from './react-component/Checkout'
 import Cart from "./react-component/Cart"
 import Home from "./react-component/Home"
 import {readStorage} from "./actions/user";
+import {readCookie} from "./actions/user";
 import Login from "./react-component/LoginRegisterView/Login";
 import Register from "./react-component/LoginRegisterView/Register";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        readStorage(this);
+        // readStorage(this);
+        readCookie(this);
     }
     state = {
         currentUser: null
@@ -29,6 +30,7 @@ class App extends React.Component {
 
     render() {
         const { currentUser } = this.state;
+        console.log(currentUser);
         return (
             <div>
                 <BrowserRouter> 

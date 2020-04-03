@@ -14,7 +14,7 @@ export const adminLogin = (loginComp, app) => {
     });
 
     // Send the request with fetch()
-    fetch(request)
+    fetch(request, {credentials: 'include'})
         .then(res => {
             if (res.status === 200) {
                 console.log('login successful');
@@ -22,7 +22,6 @@ export const adminLogin = (loginComp, app) => {
             }
         })
         .then(json => {
-            console.log(json)
             if (json.currentUser !== undefined) {
                 app.setState({ currentUser: json.currentUser });
                 console.log('login was successful');

@@ -31,7 +31,7 @@ class AdminLogin extends React.Component {
         const { app } = this.props;
         return (
             <div>
-                <NavigationBar/>
+                <NavigationBar app={app}/>
                 <div className="container-login">
                     <div className="login-form">
                         <img className="login-logo" src={tempLogo} alt={"tempLogo"} />

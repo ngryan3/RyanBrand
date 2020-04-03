@@ -4,7 +4,7 @@ const log = console.log;
 export const viewCart = (allItemsComp, app) => {
     // the URL for the request
     const url = ApiUrl + "/cart/" + app.state.currentUser;
-    fetch(url)
+    fetch(url, {credentials: 'include'})
         .then((res) => {
             if (res.status === 200){
                 log("successfully retrieved all cart items");
@@ -23,7 +23,7 @@ export const viewCart = (allItemsComp, app) => {
 export const getTotal = (cartComp, app) => {
     // the URL for the request
     const url = ApiUrl + "/cart/" + app.state.currentUser;
-    fetch(url)
+    fetch(url, {credentials: 'include'})
         .then((res) => {
             if (res.status === 200){
                 log("successfully retrieved all cart items");
@@ -64,7 +64,7 @@ export const removeItem = (itemListComp, item, app, cart) => {
             "Content-Type": "application/json"
         }
     });
-    fetch(request)
+    fetch(request, {credentials: 'include'})
         .then(function (res) {
             if (res.status === 200) {
                 console.log('product was removed from cart');
@@ -90,7 +90,7 @@ export const addToCartClick = (detail, quantity, app) => {
                 "Content-Type": "application/json"
             }
         });
-    fetch(request)
+    fetch(request, {credentials: 'include'})
         .then(function (res) {
             // Handle response we get from the API.
             // Usually check the error codes to see what happened.
