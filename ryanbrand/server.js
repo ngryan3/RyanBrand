@@ -420,7 +420,7 @@ app.get("/admins/check-session", (req, res) => {
 });
 
 // A route to login an admin
-app.post("/admin/login", (req, res) => {
+app.post("/admins/login", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
