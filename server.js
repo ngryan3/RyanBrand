@@ -26,12 +26,16 @@ app.use(bodyParser.json());
 const session = require("express-session");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
+app.use(cors({ origin: ["https://nameless-shelf-54062.herokuapp.com"], credentials: true }));
+app.all("/*", function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://nameless-shelf-54062.herokuapp.com");
+    next();
+});
+/*app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
 app.all("/*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     next();
-});
-
+});*/
 
 /*** Session handling **************************************/
 // Create a session cookie
@@ -294,41 +298,12 @@ app.delete("/products/:id", authenticate_admin, (req, res) => {
         })
 });
 
-// a POST route to add ratings to product
-app.post("/products/:id", (req, res) => {
-    const id = req.params.id;
-    const rating = {
-        rating: req.body.rating
-    };
-    console.log(req.body)
-
-    if (!ObjectID.isValid(id)) {
-        res.status(404).send();
-        return;
-    }
-
-    Product.findById(id)
-        .then(product => {
-            if (!product) {
-                res.status(404).send()
-            } else {
-                product.allRatings.push(rating);
-                product.save().then (
-                    result => {
-                        res.send({rating: rating, product: product})
-                    },
-                    error => {
-                        res.status(400).send(error)
-                    }
-                )
-            }
-        })
-});
-
 // a GET route to get all products
 app.get('/products', (req, res) => {
 	Product.find().then((products) => {
-		res.send(products) // can wrap in object if want to add more properties
+        console.log("eeeee")
+        res.send(products) // can wrap in object if want to add more properties
+        
 	}, (error) => {
 		res.status(500).send(error) // server error
 	})
@@ -496,12 +471,12 @@ app.post("/admins/login", (req, res) => {
 
 /*** Webpage routes below **********************************/
 // Serve the build
-// app.use(express.static(__dirname + "/build"));
-//
-// // All routes other than above will go to index.html
-// app.get("*", (req, res) => {
-//     res.sendFile(__dirname + "/build/index.html");
-// });
+app.use(express.static(__dirname + "/ryanbrand/build"));
+
+// All routes other than above will go to index.html
+app.get("*", (req, res) => {
+    res.sendFile(__dirname + "/ryanbrand/build/index.html");
+});
 
 /*************************************************/
 // Express server listening...
