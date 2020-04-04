@@ -65,6 +65,7 @@ export const logout = (app) => {
         .then(res => {
             app.setState({
                 currentUser: null,
+                userType: null
             });
         })
         .catch(error => {

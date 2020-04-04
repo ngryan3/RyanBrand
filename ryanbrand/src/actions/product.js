@@ -104,7 +104,7 @@ export const removeProduct = (productListComp, product) => {
         return i !== product
     });
 
-    console.log(productListComp, product)
+    console.log(productListComp, product);
 
     productListComp.setState({
         data: filteredItems,
@@ -127,4 +127,40 @@ export const removeProduct = (productListComp, product) => {
                 console.log('failed to remove product from database')
             }
         })
+};
+
+export const addProductRating = (productDetail, ratingComp) => {
+    const url = ApiUrl + "/products/" + productDetail.id;
+
+    // The data we are going to send in our request
+    console.log(productDetail, ratingComp);
+    const ratings = {
+        rating: ratingComp.state.rating
+    };
+    // Create our request constructor with all the parameters we need
+    const request = new Request(url, {
+        method: "POST",
+        body: JSON.stringify(ratings),
+        headers: {
+            'Accept': "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+    // Send the request with fetch()
+    fetch(request)
+        .then(function (res) {
+            // Handle response we get from the API.
+            // Usually check the error codes to see what happened.
+            if (res.status === 200) {
+                console.log("Successfully added rating")
+            } else {
+                // If server couldn't add the student, tell the user.
+                // Here we are adding a generic message, but you could be more specific in your app.
+                console.log("Can not add rating");
+                alert('failed to add rating')
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
 };

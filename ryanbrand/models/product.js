@@ -1,6 +1,12 @@
 /* Product mongoose model */
 const mongoose = require('mongoose')
 
+// rating product schema
+const RatingProductSchema = new mongoose.Schema({
+    rating: {
+        type: Number
+    }
+});
 // create product schema
 const productSchema = new mongoose.Schema({
     name: {
@@ -24,7 +30,8 @@ const productSchema = new mongoose.Schema({
         required: true,
         minlength: 1,
         trim: true
-    }
+    },
+    allRatings: [RatingProductSchema]
     // numInStock: {
     //     type: Number,
     //     required: true

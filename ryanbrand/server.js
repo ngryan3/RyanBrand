@@ -294,6 +294,37 @@ app.delete("/products/:id", authenticate_admin, (req, res) => {
         })
 });
 
+// a POST route to add ratings to product
+app.post("/products/:id", (req, res) => {
+    const id = req.params.id;
+    const rating = {
+        rating: req.body.rating
+    };
+    console.log(req.body)
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+
+    Product.findById(id)
+        .then(product => {
+            if (!product) {
+                res.status(404).send()
+            } else {
+                product.allRatings.push(rating);
+                product.save().then (
+                    result => {
+                        res.send({rating: rating, product: product})
+                    },
+                    error => {
+                        res.status(400).send(error)
+                    }
+                )
+            }
+        })
+});
+
 // a GET route to get all products
 app.get('/products', (req, res) => {
 	Product.find().then((products) => {
