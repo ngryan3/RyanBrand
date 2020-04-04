@@ -43,8 +43,7 @@ class Product extends React.Component {
     
     render() {
         // console.log(product, component)
-        const  list  = this.props.list
-        console.log(list)
+        const  {list, product}  = this.props
         return(
         <div class="roew">
         <tr>
@@ -61,10 +60,10 @@ class Product extends React.Component {
                 <input class="productInput" name="category" value={this.state.product.category} onChange={this.handleInputChange} disabled={!this.state.editor}/>
             </td>
             <td class="small product-cell">
-                <img src={this.state.product.image} class="productImage" alt="failed to load image"></img>
+                <img src={this.state.product.image} class="productImage" alt="failed to load image"/>
             </td>
             <td class="small product-cell">
-                <button class="btn-product-cell" onClick={() => this.state.editor ? this.edit() : removeProduct(list, this.state.product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
+                <button class="btn-product-cell" onClick={() => this.state.editor ? this.edit() : removeProduct(list, product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
 
             </td>
             <td class="small product-cell">
