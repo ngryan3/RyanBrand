@@ -100,15 +100,6 @@ export const addProduct = (formComp) => {
 
 
 export const removeProduct = (productListComp, product) => {
-    const filteredItems = productListComp.state.data.filter(i => {
-        return i !== product
-    });
-
-    console.log(productListComp, product)
-
-    productListComp.setState({
-        data: filteredItems,
-    });
 
     const url = ApiUrl + "/products/" + product._id;
     const request = new Request(url, {
@@ -121,7 +112,15 @@ export const removeProduct = (productListComp, product) => {
     fetch(request, {credentials: 'include'})
         .then(function (res) {
             if (res.status === 200) {
-                console.log('product was removed from database');
+                const filteredItems = productListComp.state.data.filter(i => {
+                    return i !== product
+                });
+                console.log(productListComp.state.data === filteredItems)
+                productListComp.setState({
+                    data: filteredItems
+                });
+                console.log(productListComp.state.data === filteredItems)
+                console.log(product.name + 'was removed from database');
                 alert(product.name + " was removed from your catalogue")
             } else {
                 console.log('failed to remove product from database')

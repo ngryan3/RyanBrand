@@ -15,7 +15,6 @@ class ProductTable extends React.Component {
     }
     componentDidMount() {
         getAllProducts(this)
-        log(this.state)
     }
 
     render() {
@@ -32,13 +31,12 @@ class ProductTable extends React.Component {
                 <th class="small heade">Category</th>
                 <th class="small heade">Image</th>
                 <th class="edit-header heade">Edit</th>
-
             </tr>
             {products.map(product => (
                 <Product
                   product = {product}
-                  list = {this}>
-                </Product>
+                  list = {this}
+                  key={product._id}/>
             ))
             }
         </div>

@@ -43,7 +43,7 @@ class Product extends React.Component {
     
     render() {
         // console.log(product, component)
-        const  list  = this.props.list
+        const list  = this.props.list
         console.log(list)
         return(
         <div class="roew">
