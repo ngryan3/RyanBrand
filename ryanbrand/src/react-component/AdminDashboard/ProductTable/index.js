@@ -33,7 +33,6 @@ class ProductTable extends React.Component {
                 <th class="small heade">Image</th>
                 <th class="edit-header heade">Edit</th>
 
-
             </tr>
             {products.map(product => (
                 <Product
