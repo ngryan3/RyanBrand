@@ -350,6 +350,35 @@ app.patch('/products/:id', (req, res) => {
     })
 });
 
+app.post('/products/:id', (req, res) => {
+   const id = req.params.id;
+   const ratings = {
+       rating: req.body.rating
+   };
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+
+    Product.findById(id)
+        .then(product => {
+            if (!product) {
+                res.status(404).send()
+            } else {
+                product.allRatings.push(ratings)
+                product.save().then (
+                    result => {
+                        res.send({rating: ratings, product: product})
+                    },
+                    error => {
+                        res.status(400).send(error)
+                    }
+                )
+            }
+        })
+});
+
 // a GET route to get a product by its category
 app.get('/products/category/:type', (req, res) => {
 	const category = req.params.type;
