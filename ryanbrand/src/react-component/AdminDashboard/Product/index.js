@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../User/index.css';
 import { editProduct } from '../../../actions/product';
+import {removeProduct} from "../../../actions/product";
+
 
 class Product extends React.Component {
     constructor(props) {
@@ -50,7 +52,8 @@ class Product extends React.Component {
 
     
     render() {
-        const {product, component} = this.props;
+        const {product, list} = this.props;
+        console.log(product, list)
 
         return(
         <div class="roew">
@@ -61,13 +64,11 @@ class Product extends React.Component {
             <td class="second">
                 {product.price}
             </td>
-            <td class="clicks">
-                {product.clicks}
+            <td class="third">
+                <img src={product.image} class="productImage" alt="failed to load image"/>
             </td>
             <td class="third">
-                <img src={product.image} class="productImage" alt="failed to load image"></img>
-            </td>
-            <td class="third">
+          {/*<button onClick={() => removeProduct(list, product)}>remove</button>*/}
                 <button onClick={() => this.state.editor ? this.edit() : this.remover.bind(this, component, product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
             </td>
             <td class="third">

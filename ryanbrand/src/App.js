@@ -25,12 +25,13 @@ class App extends React.Component {
         readCookie(this);
     }
     state = {
-        currentUser: "5e7c052a7977692b58428fde"
+        currentUser: null,
+        userType: null
     };
 
     render() {
-        const { currentUser } = this.state;
-        console.log(currentUser);
+        const { currentUser, userType } = this.state;
+        console.log(currentUser, userType);
         return (
             <div>
                 <BrowserRouter> 
@@ -45,7 +46,7 @@ class App extends React.Component {
                             exact path={['/admin', '/admin-login']}
                             render={({ history }) => (
                                 <div className="app">
-                                    {!currentUser ? <AdminLogin history={history} app={this}/> : <AdminView history={history} app={this}/>}
+                                    {(currentUser && userType === "chad") ?  <AdminView history={history} app={this}/> : <AdminLogin history={history} app={this}/>}
                                 </div>
                             )}
                         />
@@ -55,7 +56,7 @@ class App extends React.Component {
                             exact path={['/login', '/cart']}
                             render={({ history }) => (
                                 <div className="app">
-                                    {!currentUser ? <Login history={history} app={this}/> : <Cart history={history} app={this}/>}
+                                    {(currentUser && userType === "normie") ? <Cart history={history} app={this}/> : <Login history={history} app={this}/>}
                                 </div>
                             )}
                         />

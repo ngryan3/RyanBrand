@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
 app.all("/*", function(req, res, next) {
-    // res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     next();
 });
 
@@ -41,7 +41,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            expires: 60000,
+            expires: 3600000,
             httpOnly: true
         }
     })
@@ -58,10 +58,10 @@ const authenticate_admin = (req, res, next) => {
                 next()
             }
         }).catch((error) => {
-            res.status(401).send("Unauthorized")
+            res.status(401).send("Unauthorized GTFO")
         })
     } else {
-        res.status(401).send("Unauthorized")
+        res.status(401).send("Unauthorized GTFO")
     }
 };
 
@@ -100,6 +100,7 @@ app.post("/users/login", (req, res) => {
             // We can check later if this exists to ensure we are logged in.
             req.session.user = user._id;
             req.session.username = user.username;
+            req.session.userType = "normie";
             res.send({ currentUser: user._id });
         })
         .catch(error => {
@@ -123,7 +124,7 @@ app.get("/users/logout", (req, res) => {
 app.get("/users/check-session", (req, res) => {
     console.log(req.session);
     if (req.session.user) {
-        res.send({ currentUser: req.session.user });
+        res.send({ currentUser: req.session.user, userType: req.session.userType });
     } else {
         res.status(401).send();
     }
@@ -192,7 +193,7 @@ app.post("/cart/:id", authenticate, (req, res) => {
                             res.status(404).send('not a user')
                         } else {
                             // Checking for duplicate products
-                            if (user.cart.id(prod._id) === null) {
+                            if (user.cart.id(prod._id) === null) { // Product is not already in user's cart
                                 user.cart.push(product);
                                 user.save().then (
                                     result => {
@@ -201,7 +202,7 @@ app.post("/cart/:id", authenticate, (req, res) => {
                                         res.status(400).send(error)
                                     }
                                 )
-                            } else {
+                            } else { // Product is already in user's cart
                                 const cart_item = user.cart.id(prod._id);
                                 cart_item.quantity += req.body.quantity;
                                 user.save().then (
@@ -222,7 +223,7 @@ app.post("/cart/:id", authenticate, (req, res) => {
         })
 })
 
-app.delete("/cart/:id/:prod_id", (req, res) => {
+app.delete("/cart/:id/:prod_id", authenticate, (req, res) => {
     const id = req.params.id;
     const prod_id = req.params.prod_id;
 
@@ -270,6 +271,7 @@ app.post("/products", authenticate_admin,(req, res) => {
         }
     )
 });
+
 
 // a route to delete products from the website
 app.delete("/products/:id", authenticate_admin, (req, res) => {
@@ -454,6 +456,7 @@ app.post("/admins/login", (req, res) => {
             // We can check later if this exists to ensure we are logged in.
             req.session.user = admin._id;
             req.session.username = admin.username;
+            req.session.userType = "chad";
             res.send({ currentUser: admin._id });
         })
         .catch(error => {

@@ -1,7 +1,7 @@
 import ApiUrl from "../api/config"
 
 export const adminLogin = (loginComp, app) => {
-    const url = ApiUrl + "/admin/login";
+    const url = ApiUrl + "/admins/login";
     const admin = loginComp.state;
     // Create our request constructor with all the parameters we need
     const request = new Request(url, {
@@ -23,7 +23,7 @@ export const adminLogin = (loginComp, app) => {
         })
         .then(json => {
             if (json.currentUser !== undefined) {
-                app.setState({ currentUser: json.currentUser });
+                app.setState({ currentUser: json.currentUser, userType: "chad" });
                 console.log('login was successful');
             }
         })
