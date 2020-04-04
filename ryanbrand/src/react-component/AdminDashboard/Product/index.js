@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../User/index.css';
 import { editProduct } from '../../../actions/product';
+import {removeProduct} from "../../../actions/product";
+
 
 class Product extends React.Component {
     constructor(props) {
@@ -52,6 +54,7 @@ class Product extends React.Component {
     
     render() {
         const {product, component} = this.props;
+        console.log(product, component)
 
         return(
         <div class="roew">
@@ -73,6 +76,7 @@ class Product extends React.Component {
             </td>
             <td class="small product-cell">
                 <button class="btn-product-cell" onClick={() => this.state.editor ? this.edit() : this.remover.bind(this, component, product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
+
             </td>
             <td class="small product-cell">
                 <button class="btn-product-cell" onClick={() => this.toggleEditor()}>{this.state.editor ? 'Cancel' : 'Edit'}</button>

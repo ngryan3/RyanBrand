@@ -1,18 +1,20 @@
-import ApiUrl from '../api/config'
+import ApiUrl from "../api/config"
+
 // Functions to help with user actions
 // A function to check if a user is logged in on the session cookie
 export const readCookie = (app) => {
-    const url = ApiUrl + "/users/check-session";
+    const url =  ApiUrl + "/users/check-session";
 
-    fetch(url)
+    fetch(url, {credentials: 'include'})
         .then(res => {
             if (res.status === 200) {
                 return res.json();
             }
         })
         .then(json => {
+            console.log(json);
             if (json && json.currentUser) {
-                app.setState({ currentUser: json.currentUser });
+                app.setState({ currentUser: json.currentUser, userType: json.userType });
             }
         })
         .catch(error => {
@@ -35,16 +37,18 @@ export const login = (loginComp, app) => {
     });
 
     // Send the request with fetch()
-    fetch(request)
+    fetch(request, {credentials: 'include'})
         .then(res => {
             if (res.status === 200) {
                 return res.json()
+            } else {
+                alert('Please try a different username or password')
             }
         })
         .then(json => {
-            console.log(json)
+            console.log(json);
             if (json.currentUser !== undefined) {
-                app.setState({ currentUser: json.currentUser });
+                app.setState({ currentUser: json.currentUser, userType: "normie" });
                 console.log('login was successful');
             }
         })
@@ -53,14 +57,14 @@ export const login = (loginComp, app) => {
         });
 };
 
-export const logout = (app) => {
-    const url = "/users/logout";
 
-    fetch(url)
+export const logout = (app) => {
+    const url = ApiUrl + "/users/logout";
+
+    fetch(url, {credentials: "include"})
         .then(res => {
             app.setState({
                 currentUser: null,
-                message: { type: "", body: "" }
             });
         })
         .catch(error => {
@@ -70,7 +74,7 @@ export const logout = (app) => {
 
 export const addUser = (formComp) => {
     // the URL for the request
-    const url = "/users";
+    const url = ApiUrl + "/users";
 
     // The data we are going to send in our request
     const user = formComp.state;
@@ -106,3 +110,15 @@ export const addUser = (formComp) => {
             console.log(error);
         });
 };
+
+// Backup if session doesn't work anymore
+
+// export const readStorage = (app) => {
+//     app.state.currentUser = localStorage.getItem('currentUser');
+// };
+//
+// export const logout = (app) => {
+//     localStorage.removeItem('currentUser');
+//     app.state.currentUser = null;
+//     console.log(app.state.currentUser)
+// };

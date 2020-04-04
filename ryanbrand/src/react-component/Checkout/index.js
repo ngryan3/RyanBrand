@@ -31,9 +31,10 @@ class Checkout extends React.Component {
     };
 
     render() {
+        const { app } = this.props;
         return(
             <div>
-                <NavigationBar />
+                <NavigationBar app={app}/>
                 <CheckoutForm
                     fullName={this.state.fullName}
                     email={this.state.email}

@@ -15,18 +15,16 @@ class Quantity extends React.Component {
 
     increment() {
         this.setState({ quantity: this.state.quantity + 1 });
-        console.log(this.state.quantity)
     };
 
     decrement() {
         if (this.state.quantity > 1) {
             this.setState({ quantity: this.state.quantity - 1});
         }
-        console.log(this.state.quantity)
     };
 
     render() {
-        const { detail } = this.props;
+        const { detail, app } = this.props;
         return (
             <div className="quantityContainer">
                 <div>
@@ -35,10 +33,8 @@ class Quantity extends React.Component {
                     <button className="quantityButtonRight" onClick={ this.increment }>+</button>
                 </div>
                     <div className="buttonContainer">
-                        <button className="addToCartButton" onClick={addToCartClick.bind(this, detail,
-                            this.state.quantity, this)}>Add to Cart</button>
+                        <button className="addToCartButton" onClick={() => addToCartClick(detail, this.state.quantity, app)}>Add to Cart</button>
                     </div>
-
             </div>
         )
     }

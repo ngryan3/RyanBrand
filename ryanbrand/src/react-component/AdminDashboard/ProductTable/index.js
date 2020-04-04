@@ -23,7 +23,6 @@ class ProductTable extends React.Component {
         if (this.state.isLoaded === true){
             products = this.state.data
         }
-        const {component} = this.props;
         return(
         <div>
             <tr>
@@ -34,15 +33,12 @@ class ProductTable extends React.Component {
                 <th class="small heade">Image</th>
                 <th class="edit-header heade">Edit</th>
 
+
             </tr>
             {products.map(product => (
                 <Product
-                key={uid(
-                    product
-                  )}
                   product = {product}
-                  component = {component}>
-                    
+                  list = {this}>
                 </Product>
             ))
             }

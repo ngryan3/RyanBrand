@@ -17,6 +17,7 @@ class AdminView extends React.Component {
     constructor(props) {    
         super(props)
         this.k = new Date().toLocaleString()
+        this.props.history.push("/admin")
     }
 
     state = {
@@ -33,6 +34,7 @@ class AdminView extends React.Component {
         userEmail: "",
         active: 0
     }
+
 
     handleChange = event => {
         const target = event.target;
@@ -135,7 +137,7 @@ class AdminView extends React.Component {
             <Title title="Products List"/>
             <ProductForm/>
             <table class = "displayTable">
-                <ProductTable products={this.state.products} component={this}/>
+                <ProductTable products={this.state.products}/>
             </table>
             
         </div>
@@ -151,9 +153,10 @@ class AdminView extends React.Component {
         )
     }
     render() {
+        const { app } = this.props;
         return(
             <div>
-                <NavigationBar/>
+                <NavigationBar app={app}/>
                 <Tabs switcher={this.switchTab} component={this}/>
 
                 {this.state.active === 1 ?  this.productse(): this.state.active === 2? this.stats():this.returner()}
