@@ -13,7 +13,6 @@ export const getAllProducts = (allProductsComp) => {
             alert('Could not get products');
         }
     }).then(json => {
-        log('owo')
         allProductsComp.setState({ data: json, isLoaded: true})
     }).catch(error => {
         log(error);
@@ -37,9 +36,40 @@ export const getSpecificProduct = (productComp) => {
     })
 };
 
+export const editProduct = (product) => {
+    log(product)
+    const url = ApiUrl + "/products/" + product._id;
+    // data we're going to send in the request
+    let data = {
+        name: product.name,
+        price: product.price
+    }
+    log(data)
+    // make the request
+    const request = new Request(url, {
+        method: 'PATCH',
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    })
+    // send the request
+    fetch(request)
+        .then((res) => {
+            if (res.status === 200 ){
+                log("successfully updated product")
+            } else {
+                alert('Could not update product');
+            }
+        }).catch(error => {
+            log(error)
+        }) 
+}
+
 export const addProduct = (formComp) => {
     // the URL for the request
-    const url = "/products";
+    const url = ApiUrl + "/products";
 
     // The data we are going to send in our request
     const product = formComp.state;
@@ -47,17 +77,16 @@ export const addProduct = (formComp) => {
 
     // Create our request constructor with all the parameters we need
     const request = new Request(url, {
-        method: "post",
+        method: "POST",
         body: JSON.stringify(product),
         headers: {
-            Accept: "application/json, text/plain, */*",
+            'Accept': "application/json, text/plain, */*",
             "Content-Type": "application/json"
-        }
+        }   
     });
-
     // Send the request with fetch()
     fetch(request)
-        .then(function (res) {
+        .then((res) => {
             // Handle response we get from the API.
             // Usually check the error codes to see what happened.
             if (res.status === 200) {

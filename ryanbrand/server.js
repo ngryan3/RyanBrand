@@ -220,7 +220,7 @@ app.post("/cart/:id", authenticate, (req, res) => {
         .catch(error =>{
             res.status(400).send(error)
         })
-});
+})
 
 app.delete("/cart/:id/:prod_id", (req, res) => {
     const id = req.params.id;
@@ -251,16 +251,18 @@ app.delete("/cart/:id/:prod_id", (req, res) => {
 
 });
 
-app.post("/products", (req, res) => {
+// a route to add products to website
+app.post("/products", authenticate_admin,(req, res) => {
+    log('owo what dis product')
     const product = new Product({
         name: req.body.name,
-        price: req.body.price,
+        price: Number(req.body.price),
         description: req.body.description,
         category: req.body.category
     });
+    log(product)
 
-    product.save().then(
-        result => {
+    product.save().then((result) => {
             res.send(result);
         },
         error => {
@@ -269,7 +271,8 @@ app.post("/products", (req, res) => {
     )
 });
 
-app.delete("/products/:id", (req, res) => {
+// a route to delete products from the website
+app.delete("/products/:id", authenticate_admin, (req, res) => {
     const id = req.params.id;
 
     // Validate id
@@ -294,7 +297,6 @@ app.delete("/products/:id", (req, res) => {
 // a GET route to get all products
 app.get('/products', (req, res) => {
 	Product.find().then((products) => {
-		log('uwu')
 		res.send(products) // can wrap in object if want to add more properties
 	}, (error) => {
 		res.status(500).send(error) // server error
@@ -320,6 +322,26 @@ app.get('/products/:id', (req, res) => {
 	}).catch((error) => {
 		res.status(500).send()
 	})
+});
+
+// a PATCH route to edit a product
+app.patch('/products/:id', (req, res) => {
+    const id = req.params.id
+    const body = req.body
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;
+    }
+    Product.findOneAndUpdate({_id: id}, {$set:body}, {new:true}).then((product) => {
+        if (!product) {
+            
+            res.status(404).send();
+        } else {
+            res.send(product);
+        }
+    }).catch((error) => {
+        res.status(400).send(); // bad request for changing the product
+    })
 });
 
 // a GET route to get a product by its category
@@ -419,7 +441,7 @@ app.get("/admins/check-session", (req, res) => {
 });
 
 // A route to login an admin
-app.post("/admin/login", (req, res) => {
+app.post("/admins/login", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
