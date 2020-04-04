@@ -44,7 +44,7 @@ AdminSchema.statics.findByUsernamePassword = function(username, password) {
 	const Admin = this; // binds this to the Admin model
 
 	// First find the Admin by their email
-	return Admin.findOne({ username: username }).then((Admin) => {
+	return Admin.findOne({ username: Adminname }).then((Admin) => {
 		if (!Admin) {
 			return Promise.reject()  // a rejected promise
 		}

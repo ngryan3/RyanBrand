@@ -8,12 +8,12 @@ import './App.css';
 import ProductView from './react-component/ProductView'
 import AdminView from './react-component/AdminDashboard'
 import Catalogue from './react-component/Catalogue'
-import LoginView from './react-component/LoginRegisterView/'
 import AdminLogin from './react-component/LoginRegisterView/AdminLogin'
 import About from './react-component/About'
 import Checkout from './react-component/Checkout'
 import Cart from "./react-component/Cart"
 import Home from "./react-component/Home"
+import {readStorage} from "./actions/user";
 import {readCookie} from "./actions/user";
 import Login from "./react-component/LoginRegisterView/Login";
 import Register from "./react-component/LoginRegisterView/Register";
@@ -21,6 +21,7 @@ import Register from "./react-component/LoginRegisterView/Register";
 class App extends React.Component {
     constructor(props) {
         super(props);
+        // readStorage(this);
         readCookie(this);
     }
     state = {
@@ -29,20 +30,27 @@ class App extends React.Component {
 
     render() {
         const { currentUser } = this.state;
+        console.log(currentUser);
         return (
             <div>
                 <BrowserRouter> 
                     <Switch>
                         {/*Making catalogue as home page for testing*/}
-                        <Route exact path='/' render={()=> (<Home/>)}/>
-                        <Route exact path='/catalogue' render={()=> (<Catalogue/>)}/>
-                        <Route path='/product/:id' component={ProductView}/>
-                        <Route exact path='/admin' render={()=> (<AdminView/>)}/>
+                        <Route exact path='/' render={()=> (<Home app={this}/>)}/>
+                        <Route exact path='/catalogue' render={()=> (<Catalogue app={this}/>)}/>
+                        <Route path='/product/:id' render={(matchProps) => (<ProductView {...matchProps} app={this}/>)}/>
                         {/*<Route exact path='/login' render={({ history })=> (<Login history={history} app = {this}/>)}/>*/}
-                        <Route exact path='/register' render={() => (<Register />)}/>
-                        <Route exact path='/admin-login' render={()=> (<AdminLogin/>)}/>
-                        <Route exact path='/about' render={()=> (<About/>)}/>
-                        <Route exact path='/checkout' render={() => (<Checkout/>)}/>
+                        <Route exact path='/register' render={() => (<Register app={this}/>)}/>
+                        <Route
+                            exact path={['/admin', '/admin-login']}
+                            render={({ history }) => (
+                                <div className="app">
+                                    {!currentUser ? <AdminLogin history={history} app={this}/> : <AdminView history={history} app={this}/>}
+                                </div>
+                            )}
+                        />
+                        <Route exact path='/about' render={()=> (<About app={this}/>)}/>
+                        <Route exact path='/checkout' render={() => (<Checkout app={this}/>)}/>
                         <Route
                             exact path={['/login', '/cart']}
                             render={({ history }) => (

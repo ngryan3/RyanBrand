@@ -5,17 +5,26 @@ import { removeItem } from "../../../actions/cart";
 
 class Item extends React.Component {
     render() {
-        const { item, cartComponent } = this.props;
+        const { item, list, app, cart } = this.props;
         return (
-            <div className="item">
-                <img src={productImg} />
-                <div className="itemText">{item.name}</div>
-                <div className="itemText">Quantity: {item.quantity}</div>
-                <div className="itemText">Price: ${item.price}</div>
-                <button onClick={removeItem.bind(this, cartComponent, item)}>Remove</button>
-            </div>
+                <tr>
+                    <td>
+                        <img src={productImg}/>
+                    </td>
+                    <td className="itemText">
+                        {item.name}
+                    </td>
+                    <td className="itemText">
+                        {item.quantity}
+                    </td>
+                    <td className="itemText">
+                        ${item.price}
+                    </td>
+                    <td className="buttonCenter">
+                        <button onClick={() => removeItem(list, item, app, cart)}>remove</button>
+                    </td>
+                </tr>
         )
     }
 }
-
 export default Item

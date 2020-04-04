@@ -13,7 +13,7 @@ mongoose.set('useFindAndModify', false); // for some deprecation issues
 
 const { User } = require("./models/user");
 const { Product } = require("./models/product");
-const { Admin } = require("./models/admin")
+const { Admin } = require("./models/admin");
 
 // to validate object IDs
 const { ObjectID } = require('mongodb');
@@ -26,9 +26,9 @@ app.use(bodyParser.json());
 const session = require("express-session");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors({ origin: ["http://localhost:3000", "http://localhost:5000"] }));
+app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
 app.all("/*", function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Origin", "*");
     next();
 });
 
@@ -63,16 +63,17 @@ const authenticate_admin = (req, res, next) => {
     } else {
         res.status(401).send("Unauthorized")
     }
-}
+};
 
 // Middleware for authentication of resources
 const authenticate = (req, res, next) => {
+    console.log(req.session);
     if (req.session.user) {
         User.findById(req.session.user).then((user) => {
             if (!user) {
                 return Promise.reject()
             } else {
-                req.user = user;
+                req.user = user._id;
                 next()
             }
         }).catch((error) => {
@@ -81,7 +82,7 @@ const authenticate = (req, res, next) => {
     } else {
         res.status(401).send("Unauthorized")
     }
-}
+};
 
 
 /*** API User Routes below ************************************/
@@ -99,7 +100,7 @@ app.post("/users/login", (req, res) => {
             // We can check later if this exists to ensure we are logged in.
             req.session.user = user._id;
             req.session.username = user.username;
-            res.send({ currentUser: user.username });
+            res.send({ currentUser: user._id });
         })
         .catch(error => {
             res.status(400).send(error)
@@ -122,7 +123,7 @@ app.get("/users/logout", (req, res) => {
 app.get("/users/check-session", (req, res) => {
     console.log(req.session);
     if (req.session.user) {
-        res.send({ currentUser: req.session.username });
+        res.send({ currentUser: req.session.user });
     } else {
         res.status(401).send();
     }
@@ -146,8 +147,27 @@ app.post("/users", (req, res) => {
         }
     )
 });
+// Get all products from user's cart
+app.get("/cart/:id", authenticate, (req, res) => {
+    const id = req.params.id;
 
-// Add product to user's cart
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send(); // can't find product
+        return;
+    }
+    User.findById(id).then((user) => {
+        if (!user) {
+            res.status(404).send()
+        } else {
+            res.send(user.cart)
+        }
+    }).catch((error) => {
+        res.status(500).send(error)
+    })
+
+});
+
+// A Post request to add product to user's cart
 app.post("/cart/:id", authenticate, (req, res) => {
     const id = req.params.id;
 
@@ -160,12 +180,39 @@ app.post("/cart/:id", authenticate, (req, res) => {
             if (!prod) {
                 res.status(404).send()
             } else {
-                User.findByIdAndUpdate(id, { $push: {cart: {quantity: req.body.quantity, productInfo: prod}}})
+                const product = {
+                    _id: prod._id,
+                    name: prod.name,
+                    quantity: req.body.quantity,
+                    price: prod.price
+                };
+                User.findById(id)
                     .then(user => {
-                        if (!user) {
-                            res.status(404).send()
+                        if(!user) {
+                            res.status(404).send('not a user')
                         } else {
-                            res.send(user)
+                            // Checking for duplicate products
+                            if (user.cart.id(prod._id) === null) {
+                                user.cart.push(product);
+                                user.save().then (
+                                    result => {
+                                        res.send({product: product, user: result})
+                                    }, error => {
+                                        res.status(400).send(error)
+                                    }
+                                )
+                            } else {
+                                const cart_item = user.cart.id(prod._id);
+                                cart_item.quantity += req.body.quantity;
+                                user.save().then (
+                                    result => {
+                                        res.send({product: product, user: result})
+                                    }, error => {
+                                        res.status(400).send(error)
+                                    }
+                                )
+                            }
+
                         }
                     })
             }
@@ -174,6 +221,35 @@ app.post("/cart/:id", authenticate, (req, res) => {
             res.status(400).send(error)
         })
 })
+
+app.delete("/cart/:id/:prod_id", (req, res) => {
+    const id = req.params.id;
+    const prod_id = req.params.prod_id;
+
+    if (!ObjectID.isValid(id) || !ObjectID.isValid(prod_id)) {
+        res.status(404).send();
+        return;
+    }
+
+    User.findById(id)
+        .then(user => {
+            if (!user) {
+                res.status(404).send()
+            } else {
+                const item = user.cart.id(prod_id);
+                user.cart.id(prod_id).remove();
+                user.save().then (
+                    result => {
+                        res.send({user: result, item: item})
+                    },
+                    error => {
+                        res.status(400).send(error)
+                    }
+                )
+            }
+        })
+
+});
 
 // a route to add products to website
 app.post("/products", authenticate_admin,(req, res) => {
@@ -225,16 +301,16 @@ app.get('/products', (req, res) => {
 	}, (error) => {
 		res.status(500).send(error) // server error
 	})
-})
+});
 
 
 // a GET route to get a product by its id
 app.get('/products/:id', (req, res) => {
-	log(req.params)
-	const id = req.params.id
-	log(id)
+	log(req.params);
+	const id = req.params.id;
+	log(id);
 	if (!ObjectID.isValid(id)) {
-		res.status(404).send() // can't find product
+		res.status(404).send();// can't find product
 		return;  
 	}
 	Product.findById(id).then((product) => {
@@ -246,7 +322,7 @@ app.get('/products/:id', (req, res) => {
 	}).catch((error) => {
 		res.status(500).send()
 	})
-})
+});
 
 // a PATCH route to edit a product
 app.patch('/products/:id', (req, res) => {
@@ -270,19 +346,19 @@ app.patch('/products/:id', (req, res) => {
 
 // a GET route to get a product by its category
 app.get('/products/category/:type', (req, res) => {
-	const category = req.params.type
-	log(category)
+	const category = req.params.type;
+	log(category);
 	Product.findByCategory(category).then((result) => {
 		if (!result.length) {
-			res.status(404).send() // couldn't find product
-			return
+			res.status(404).send(); // couldn't find product
+			return;
 		} else {
 			res.send(result) // can wrap in object if want to add more properties
 		}
 	}).catch((error) => {
 		res.status(500).send() // server error
 	})
-})
+});
 
 // a GET route to get a product by its name
 // app.get('/products/:name', (req, res) => {
@@ -309,28 +385,28 @@ app.get('/users', (req, res) => {
 	}, (error) => {
 		res.status(500).send(error) // server error
 	})
-})
+});
 
 // a GET route to a user's cart? 
 app.get('/users/:id', authenticate, (req, res) => {
 	// log(req.params.id)
-	const id = req.params.id
+	const id = req.params.id;
 	if (!ObjectID.isValid(id)) {
-		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
+		res.status(404).send();  // if invalid id, definitely can't find resource, 404.
 		return;
 	}
 	User.findOne({_id: id}).then((user) => {
 		if (!user) {
 			res.status(404).send()
 		} else {
-			const email = user.email
-			const cart = user.cart
+			const email = user.email;
+			const cart = user.cart;
 			res.send({ email, cart })
 		}
 	}).catch((error) => {
 		res.status(500).send()
 	})
-})
+});
 
 
 //---Admin routes---//
@@ -373,38 +449,27 @@ app.post("/admins/login", (req, res) => {
     // Use the static method on the User model to find a user
     // by their email and password
     Admin.findByUsernamePassword(username, password)
-        .then(user => {
+        .then(admin => {
             // Add the user's id to the session cookie.
             // We can check later if this exists to ensure we are logged in.
-            req.session.user = user._id;
-            req.session.username = user.username;
-            res.send({ currentUser: user.username });
+            req.session.user = admin._id;
+            req.session.username = admin.username;
+            res.send({ currentUser: admin._id });
         })
         .catch(error => {
             res.status(400).send(error)
         });
 });
 
-// A route to logout an admin
-app.get("/admins/logout", (req, res) => {
-    // Remove the session
-    req.session.destroy(error => {
-        if (error) {
-            res.status(500).send(error);
-        } else {
-            res.send('successful logout')
-        }
-    });
-});
 
 /*** Webpage routes below **********************************/
 // Serve the build
-app.use(express.static(__dirname + "/build"));
-
-// All routes other than above will go to index.html
-app.get("*", (req, res) => {
-    res.sendFile(__dirname + "/build/index.html");
-});
+// app.use(express.static(__dirname + "/build"));
+//
+// // All routes other than above will go to index.html
+// app.get("*", (req, res) => {
+//     res.sendFile(__dirname + "/build/index.html");
+// });
 
 /*************************************************/
 // Express server listening...

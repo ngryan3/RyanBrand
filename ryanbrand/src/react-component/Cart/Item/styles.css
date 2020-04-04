@@ -1,25 +1,13 @@
-.item {
-    background-color: whitesmoke;
-    overflow: hidden;
-    min-width: 100px;
-    height: 220px;
-    display: flex;
-
-}
-.item img {
-    height: 215px;
-    width: auto;
+img {
+    max-width: 10vw;
+    max-height: 10vw;
+    align-self: flex-start;
 }
 
 .itemText {
     text-align: center;
-    margin: 5px;
-    font-size: 200%;
 }
 
-.item button {
-    height: 50px;
-    width: 150px;
-    margin-top: 5px;
-    margin-left: 18%;
+.buttonCenter {
+    text-align: center;
 }

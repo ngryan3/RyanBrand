@@ -6,9 +6,10 @@ import NavigationBar from './../NavigationBar/index'
 
 class Catalogue extends React.Component {
     render() {
+        const { app } = this.props;
         return (
             <div>
-                <NavigationBar />
+                <NavigationBar app={app}/>
                 <div className="columns"> 
                     <div className='column-left'><Sidebar/></div>
                     <div className='column-right'><TileContainer/></div>

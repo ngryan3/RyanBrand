@@ -7,9 +7,10 @@ import { withRouter } from 'react-router-dom';
 
 class Home extends React.Component {
     render() {
+        const { app } = this.props;
         return (
             <div>
-                <NavigationBar/>
+                <NavigationBar app={app}/>
                 <div className='section'>
                     <h1> WELCOME TO THE RYAN STORE</h1>
                     <a className='viewProduct' href='/catalogue'>View Products</a>
