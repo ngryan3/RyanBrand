@@ -19,6 +19,24 @@ export const getAllProducts = (allProductsComp) => {
     })
 };
 
+export const getProductByCategory = (productsComp, category) => {
+    // the url for the request
+    const url = ApiUrl + "/products/category" + category;
+    fetch(url)
+    .then((res) => {
+        if (res.status === 200){
+            log("successfully retrieved products");
+            return res.json()
+        } else {
+            alert('Could not get products');
+        }
+    }).then(json => {
+        productsComp.setState({ data: json })
+    }).catch(error => {
+        log(error);
+    })
+}
+
 export const getSpecificProduct = (productComp) => {
     const url = ApiUrl + "/products/" + productComp.state.id;
     fetch(url)

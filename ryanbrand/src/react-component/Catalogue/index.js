@@ -10,9 +10,8 @@ class Catalogue extends React.Component {
         return (
             <div>
                 <NavigationBar app={app}/>
-                <div className="columns"> 
-                    <div className='column-left'><Sidebar/></div>
-                    <div className='column-right'><TileContainer/></div>
+                <div> 
+                    <TileContainer/>
                 </div>
             </div>
         )
