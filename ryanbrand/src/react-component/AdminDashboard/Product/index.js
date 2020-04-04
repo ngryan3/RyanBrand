@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import '../User/index.css'
+import '../User/index.css';
+import { editProduct } from '../../../actions/product';
 
 class Product extends React.Component {
     constructor(props) {
@@ -27,18 +28,20 @@ class Product extends React.Component {
     }
 
     edit = () => {
-        console.log('editing!')    
+        console.log(this.state.product)
+        editProduct(this.state.product)
+        this.toggleEditor()    
     }
 
     handleInputChange = event => {
         const target = event.target;
-        const value = target.value;
+        const value = target.value.trim();
         const name = target.name;
 
-        this.setState({
-            product: {[name]: value}
-        });
-        console.log(this.state)
+        let product = this.state.product
+        product[name] = value
+        this.setState({product})
+        console.log(this.state.product)
     };
 
     toggleEditor() {
@@ -53,7 +56,7 @@ class Product extends React.Component {
         <div class="roew">
         <tr>
             <td class="first">
-                <input class="productInput" value={this.state.product.name} onChange={this.handleInputChange} disabled={!this.state.editor}/>
+                <input class="productInput" name="name" value={this.state.product.name} onChange={this.handleInputChange} disabled={!this.state.editor}/>
             </td>
             <td class="second">
                 {product.price}
@@ -65,7 +68,7 @@ class Product extends React.Component {
                 <img src={product.image} class="productImage" alt="failed to load image"></img>
             </td>
             <td class="third">
-                <button onClick={this.state.editor ? this.edit() : this.remover.bind(this, component, product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
+                <button onClick={() => this.state.editor ? this.edit() : this.remover.bind(this, component, product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
             </td>
             <td class="third">
                 <button onClick={() => this.toggleEditor()}>{this.state.editor ? 'Cancel' : 'Edit'}</button>

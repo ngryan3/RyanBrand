@@ -249,16 +249,16 @@ app.get('/products/:id', (req, res) => {
 })
 
 // a PATCH route to edit a product
-app.patch('/products/:id', authenticate_admin, (req, res) => {
+app.patch('/products/:id', (req, res) => {
     const id = req.params.id
-    const { body } = req.body
-    log(id)
+    const body = req.body
     if (!ObjectID.isValid(id)) {
         res.status(404).send()
         return;
     }
     Product.findOneAndUpdate({_id: id}, {$set:body}, {new:true}).then((product) => {
         if (!product) {
+            
             res.status(404).send();
         } else {
             res.send(product);
