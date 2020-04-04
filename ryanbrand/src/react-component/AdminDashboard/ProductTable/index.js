@@ -27,11 +27,13 @@ class ProductTable extends React.Component {
         return(
         <div>
             <tr>
-                <th class="first heade">Product Name</th>
-                <th class="second heade">Price</th>
-                <th class="clicks heade">Clicks</th>
-                <th class="third heade">image</th>
-                <th class="third heade">Remove?</th>
+                <th class="medium heade">Product Name</th>
+                <th class="small heade">Price</th>
+                <th class="big heade">Description</th>
+                <th class="small heade">Category</th>
+                <th class="small heade">Image</th>
+                <th class="edit-header heade">Edit</th>
+
             </tr>
             {products.map(product => (
                 <Product

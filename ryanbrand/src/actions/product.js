@@ -38,18 +38,12 @@ export const getSpecificProduct = (productComp) => {
 };
 
 export const editProduct = (product) => {
-    log(product)
     const url = ApiUrl + "/products/" + product._id;
-    // data we're going to send in the request
-    let data = {
-        name: product.name,
-        price: product.price
-    }
-    log(data)
+    
     // make the request
     const request = new Request(url, {
         method: 'PATCH',
-        body: JSON.stringify(data),
+        body: JSON.stringify(product),
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
@@ -59,7 +53,7 @@ export const editProduct = (product) => {
     fetch(request)
         .then((res) => {
             if (res.status === 200 ){
-                log("successfully updated product")
+                alert("successfully updated product")
             } else {
                 alert('Could not update product');
             }
