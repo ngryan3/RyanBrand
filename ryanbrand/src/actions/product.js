@@ -97,6 +97,8 @@ export const addProduct = (formComp) => {
         });
 };
 
+
+
 export const removeProduct = (productListComp, product) => {
     const filteredItems = productListComp.state.data.filter(i => {
         return i !== product
@@ -120,7 +122,7 @@ export const removeProduct = (productListComp, product) => {
         .then(function (res) {
             if (res.status === 200) {
                 console.log('product was removed from database');
-                alert(product.name + " was removed from your cart")
+                alert(product.name + " was removed from your catalogue")
             } else {
                 console.log('failed to remove product from database')
             }

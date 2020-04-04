@@ -13,18 +13,7 @@ class Product extends React.Component {
         }
     }  
 
-    remover = (component, product) => {
-        const filtere = component.state.products.filter(p => {
-            return p !== product
-        })
-
-        component.setState({
-            products: filtere
-        })
-    }
-
     edit = () => {
-        console.log(this.state.product)
         editProduct(this.state.product)
         this.toggleEditor()    
     }
@@ -53,9 +42,9 @@ class Product extends React.Component {
 
     
     render() {
-        const {product, component} = this.props;
-        console.log(product, component)
-
+        // console.log(product, component)
+        const  list  = this.props.list
+        console.log(list)
         return(
         <div class="roew">
         <tr>
@@ -72,10 +61,10 @@ class Product extends React.Component {
                 <input class="productInput" name="category" value={this.state.product.category} onChange={this.handleInputChange} disabled={!this.state.editor}/>
             </td>
             <td class="small product-cell">
-                <img src={product.image} class="productImage" alt="failed to load image"></img>
+                <img src={this.state.product.image} class="productImage" alt="failed to load image"></img>
             </td>
             <td class="small product-cell">
-                <button class="btn-product-cell" onClick={() => this.state.editor ? this.edit() : this.remover.bind(this, component, product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
+                <button class="btn-product-cell" onClick={() => this.state.editor ? this.edit() : removeProduct(list, this.state.product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
 
             </td>
             <td class="small product-cell">
