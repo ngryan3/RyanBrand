@@ -26,9 +26,9 @@ app.use(bodyParser.json());
 const session = require("express-session");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors({ origin: ["https://nameless-shelf-54062.herokuapp.com"], credentials: true }));
+app.use(cors({ origin: ["https://quiet-journey-89938.herokuapp.com"], credentials: true }));
 app.all("/*", function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://nameless-shelf-54062.herokuapp.com");
+    res.header("Access-Control-Allow-Origin", "https://quiet-journey-89938.herokuapp.com/");
     next();
 });
 /*app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
