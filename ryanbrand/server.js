@@ -253,8 +253,7 @@ app.delete("/cart/:id/:prod_id", authenticate, (req, res) => {
 });
 
 // a route to add products to website
-app.post("/products", authenticate_admin,(req, res) => {
-    log('owo what dis product')
+app.post("/products", authenticate_admin, (req, res) => {
     const product = new Product({
         name: req.body.name,
         price: Number(req.body.price),
@@ -262,7 +261,6 @@ app.post("/products", authenticate_admin,(req, res) => {
         category: req.body.category
     });
     log(product)
-
     product.save().then((result) => {
             res.send(result);
         },

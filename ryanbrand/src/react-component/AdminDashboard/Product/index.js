@@ -12,12 +12,6 @@ class Product extends React.Component {
             product: this.props.product
         }
     }  
-    
-    fun = () => {
-        alert("jello") 
-        //e.preventDefault();
-
-    }
 
     remover = (component, product) => {
         const filtere = component.state.products.filter(p => {
@@ -40,6 +34,13 @@ class Product extends React.Component {
         const value = target.value.trim();
         const name = target.name;
 
+        if (name === "price"){
+            if (!Number(value)){
+                document.getElementsByName("price").value = this.state.product.price
+                return;
+            }
+        }
+
         let product = this.state.product
         product[name] = value
         this.setState({product})
@@ -58,21 +59,27 @@ class Product extends React.Component {
         return(
         <div class="roew">
         <tr>
-            <td class="first">
+            <td class="medium product-cell">
                 <input class="productInput" name="name" value={this.state.product.name} onChange={this.handleInputChange} disabled={!this.state.editor}/>
             </td>
-            <td class="second">
-                {product.price}
+            <td class="small product-cell">
+                <input class="productInput" name="price" value={this.state.product.price} onChange={this.handleInputChange} disabled={!this.state.editor}/>
             </td>
-            <td class="third">
-                <img src={product.image} class="productImage" alt="failed to load image"/>
+            <td class="big product-cell">
+                <input class="productInput" name="description" value={this.state.product.description} onChange={this.handleInputChange} disabled={!this.state.editor}/>
             </td>
-            <td class="third">
-          {/*<button onClick={() => removeProduct(list, product)}>remove</button>*/}
-                <button onClick={() => this.state.editor ? this.edit() : this.remover.bind(this, component, product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
+            <td class="small product-cell">
+                <input class="productInput" name="category" value={this.state.product.category} onChange={this.handleInputChange} disabled={!this.state.editor}/>
             </td>
-            <td class="third">
-                <button onClick={() => this.toggleEditor()}>{this.state.editor ? 'Cancel' : 'Edit'}</button>
+            <td class="small product-cell">
+                <img src={product.image} class="productImage" alt="failed to load image"></img>
+            </td>
+            <td class="small product-cell">
+                <button class="btn-product-cell" onClick={() => this.state.editor ? this.edit() : this.remover.bind(this, component, product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>
+
+            </td>
+            <td class="small product-cell">
+                <button class="btn-product-cell" onClick={() => this.toggleEditor()}>{this.state.editor ? 'Cancel' : 'Edit'}</button>
             </td>            
         </tr>
         </div>
@@ -80,33 +87,5 @@ class Product extends React.Component {
     }
 }
 
-// class ProductEditor extends React.Children {
-//     render() {
-//         return (
-//             <div class="roew">
-//         <tr >
-//             <td class="first">
-//                 {product.name}
-//             </td>
-//             <td class="second">
-//                 {product.price}
-//             </td>
-//             <td class="clicks">
-//                 {product.description}
-//             </td>
-//             <td class="third">
-//                 <img src={product.image} class="productImage" alt="failed to load image"></img>
-//             </td>
-//             <td class="third">
-//                 <button onClick={this.remover.bind(this, component, product)}>Cancel</button>
-//             </td>
-//             <td class="third">
-//                 <button onClick={() => this.enableEditor()}>Submit</button>
-//             </td>            
-//         </tr>
-//         </div>
-//         )
-//     }
-// }
 
 export default Product;
