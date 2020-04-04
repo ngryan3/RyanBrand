@@ -24,7 +24,7 @@ class App extends React.Component {
         readCookie(this);
     }
     state = {
-        currentUser: null
+        currentUser: "5e7c052a7977692b58428fde"
     };
 
     render() {
