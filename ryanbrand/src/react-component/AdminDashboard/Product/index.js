@@ -52,8 +52,8 @@ class Product extends React.Component {
 
     
     render() {
-        const {product, list} = this.props;
-        console.log(product, list)
+        const {product, component} = this.props;
+        console.log(product, component)
 
         return(
         <div class="roew">

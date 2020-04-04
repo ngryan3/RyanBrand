@@ -55,7 +55,7 @@ export const editProduct = (product) => {
         }
     })
     // send the request
-    fetch(request)
+    fetch(request, {credentials: 'include'})
         .then((res) => {
             if (res.status === 200 ){
                 log("successfully updated product")
