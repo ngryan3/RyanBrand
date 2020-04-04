@@ -26,11 +26,11 @@ class TileContainer extends React.Component {
         }
         console.log(products)
         return (
-            <div>
-                <div>
+            <div id="catalogue">
+                <div id="sidebar-categories">
                     <Sidebar list={this}/>
                 </div>
-                <div className="tileContainer">
+                <div id="tileContainer">
                     {products.map(product => (
                         <Tile product={product} />
                     ))}

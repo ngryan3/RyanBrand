@@ -21,7 +21,7 @@ export const getAllProducts = (allProductsComp) => {
 
 export const getProductByCategory = (productsComp, category) => {
     // the url for the request
-    const url = ApiUrl + "/products/category" + category;
+    const url = ApiUrl + "/products/category/" + category;
     fetch(url)
     .then((res) => {
         if (res.status === 200){
