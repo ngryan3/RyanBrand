@@ -5,6 +5,7 @@
     height: 80vh;
     margin:auto;
     background-color: white;
+    overflow: auto;
 }
 
 .tabs:hover {
