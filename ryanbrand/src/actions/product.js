@@ -50,7 +50,7 @@ export const editProduct = (product) => {
         }
     })
     // send the request
-    fetch(request)
+    fetch(request, {credentials: 'include'})
         .then((res) => {
             if (res.status === 200 ){
                 alert("successfully updated product")
@@ -76,16 +76,16 @@ export const addProduct = (formComp) => {
         body: JSON.stringify(product),
         headers: {
             'Accept': "application/json, text/plain, */*",
-            "Content-Type": "application/json"
+            'Content-Type': "application/json"
         }   
     });
     // Send the request with fetch()
-    fetch(request)
+    fetch(request, {credentials: 'include'})
         .then((res) => {
             // Handle response we get from the API.
             // Usually check the error codes to see what happened.
             if (res.status === 200) {
-                console.log("Successfully added product")
+                alert("Successfully added product")
             } else {
                 // If server couldn't add the student, tell the user.
                 // Here we are adding a generic message, but you could be more specific in your app.
