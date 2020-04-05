@@ -37,6 +37,13 @@ On the checkout page, the user can enter their information to checkout. Currentl
 When logged in, a user can logout at any time using the button in the header.
 
 ### Overview of Routes:
+
+/images/:name/ - POST
+This route posts an image to our Cloudinary server. It also inserts the image id url and product name into our mongoDB server as well. It expects an image path (and name given in the url). It returns the image information on success, and returns 400 on error.
+
+/images/:name - GET
+Returns the image under given. Returns the requested image on success, and 500 on failure. The other image get route is not currently used.  
+
 /users/login/ - POST
 This route expects a username and password field to be sent in the body. It is used for regular user login. It finds a user by user password. What is expected to be returned is the current user's user id. Ther user is expected to be logged in after. This route should catch a 400 error.
 

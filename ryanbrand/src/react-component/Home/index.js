@@ -16,8 +16,8 @@ class Home extends React.Component {
                     <a className='viewProduct' href='/catalogue'>View Products</a>
                 </div>
                 <div className='section'>
-                    <h1>MINI-GAMES ARE COMING SOON!!!!</h1>
-                    <button disabled className='gameButton'>COMING SOON</button>
+                    <h1>MINI-GAMES ARE DISCOUNTINUED!!!!</h1>
+                    <button disabled className='gameButton'>:(</button>
                 </div>
             </div>
         )
