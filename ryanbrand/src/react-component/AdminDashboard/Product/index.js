@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import '../User/index.css';
 import { editProduct } from '../../../actions/product';
 import {removeProduct} from "../../../actions/product";
-
+import { getImages } from "../../../actions/image";
 
 class Product extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             editor: false, 
-            product: this.props.product
+            product: this.props.product,
+            image_url: ""
         }
     }  
 
@@ -40,6 +41,9 @@ class Product extends React.Component {
         this.setState({editor : !this.state.editor})
     }
 
+    componentDidMount() {
+        getImages(this, this.state.product);
+     }
     
     render() {
         // console.log(product, component)
@@ -60,7 +64,7 @@ class Product extends React.Component {
                 <input class="productInput" name="category" value={this.state.product.category} onChange={this.handleInputChange} disabled={!this.state.editor}/>
             </td>
             <td class="small product-cell">
-                <img src={this.state.product.image} class="productImage" alt="failed to load image"/>
+                <img src={this.state.image_url} class="productImage" alt="failed to load image"/>
             </td>
             <td class="small product-cell">
                 <button class="btn-product-cell" onClick={() => this.state.editor ? this.edit() : removeProduct(list, this.state.product)}>{this.state.editor ? 'Submit' : 'Remove'}</button>

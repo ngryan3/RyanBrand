@@ -29,16 +29,16 @@ const multipartMiddleware = multipart();
 const session = require("express-session");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//app.use(cors({ origin: ["https://quiet-journey-89938.herokuapp.com"], credentials: true }));
-/*app.all("/*", function(req, res, next) {
+app.use(cors({ origin: ["https://quiet-journey-89938.herokuapp.com"], credentials: true }));
+app.all("/*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "https://quiet-journey-89938.herokuapp.com/");
     next();
-});*/
- app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
+});
+ /*app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
  app.all("/*", function(req, res, next) {
      res.header("Access-Control-Allow-Origin", "http://localhost:3000");
      next();
- });
+ });*/
 
 const cloudinary = require('cloudinary');
 cloudinary.config({
