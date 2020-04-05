@@ -1,31 +1,33 @@
 import React from 'react';
 import './index.css';
 import User from "../User/User.js";
-import { uid } from "react-uid";
+import { getAllUsers } from "./../../../actions/user";
 
 
 class UserTable extends React.Component {
-
-
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            isLoaded: false
+        }
+    }
+    componentDidMount() {
+        getAllUsers(this)
+    }
     render() {
-        const {users, component} = this.props;
+        const {component} = this.props.component;
         return(
         <div>
             <tr>
                 <th class="first heade" >User</th>
-                <th class="email heade">Email</th>
-                <th class="second heade">Date Joined</th>
                 <th class="third heade">Remove?</th>
             </tr>
-            {users.map(user => (
+            {this.state.data.map(user => (
                 <User
-                key={uid(
-                    user
-                  )}
-                  user = {user}
-                  component = {component}>
-                    
+                    key={user._id}
+                    user = {user}
+                    component = {this}>
                 </User>
             ))
             }
