@@ -22,10 +22,10 @@
         "express-session": "^1.17.0",
         "mongodb": "^3.5.5",
         "mongoose": "^5.9.5",
-        "validator": "^12.2.0"
+        "validator": "^12.2.0",
+        "cloudinary": "^1.21.0"
     },
     "devDependencies": {
-        "cloudinary": "^1.21.0",
         "express-session": "^1.17.0",
         "react-router-dom": "^5.1.2"
     }
