@@ -59,9 +59,9 @@ export const editProduct = (product) => {
         }).catch(error => {
             log(error)
         }) 
-}
+};
 
-export const addProduct = (formComp) => {
+export const addProduct = (formComp, form) => {
     // the URL for the request
     const url = ApiUrl + "/products";
 
@@ -95,6 +95,35 @@ export const addProduct = (formComp) => {
         .catch(error => {
             console.log(error);
         });
+
+        // the URL for the request
+        const url2 = ApiUrl + "/images/" + product.name;
+        // The data we are going to send in our request
+        const imageData = new FormData(form);
+
+        // Create our request constructor with all the parameters we need
+        const request2 = new Request(url2, {
+            method: "post",
+            body: imageData,
+        });
+
+        // Send the request with fetch()
+        fetch(request2)
+            .then(function (res) {
+                // Handle response we get from the API.
+                // Usually check the error codes to see what happened.
+                if (res.status === 200) {
+                    // If image was added successfully, tell the user.
+                    alert('success')
+                } else {
+                    // If server couldn't add the image, tell the user.
+                    // Here we are adding a generic message, but you could be more specific in your app.
+                    alert('fail')
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
 };
 
 
