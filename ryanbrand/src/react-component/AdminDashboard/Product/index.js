@@ -52,7 +52,7 @@ class Product extends React.Component {
         <div class="roew">
         <tr>
             <td class="medium product-cell">
-                <input class="productInput" name="name" value={this.state.product.name} onChange={this.handleInputChange} disabled={!this.state.editor}/>
+                <input class="productInput" name="name" value={this.state.product.name} onChange={this.handleInputChange} disabled={true}/>
             </td>
             <td class="small product-cell">
                 <input class="productInput" name="price" value={this.state.product.price} onChange={this.handleInputChange} disabled={!this.state.editor}/>
