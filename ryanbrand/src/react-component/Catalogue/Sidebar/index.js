@@ -11,7 +11,7 @@ class Sidebar extends React.Component {
             <div className="sidebar">
                 <h1 className>Categories</h1>
                 <li>
-                    <Link className="link" onClick={() => getProductByCategory(list, "Ryan’s Recs")}>Ryan's Recs</Link>
+                    <Link className="link" onClick={() => getProductByCategory(list, "Ryan's Recs")}>Ryan's Recs</Link>
                 </li>
                 <li>
                     <Link className="link" onClick={() => getAllProducts(list)}>All Products</Link>
