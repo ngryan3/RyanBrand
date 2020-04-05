@@ -4,6 +4,7 @@ import NavigationBar from "../NavigationBar";
 import ProductDetail from "./ProductDetail";
 import logo from '../../logo.svg';
 import {getSpecificProduct} from "../../actions/product";
+import { getImages } from "../../actions/image";
 
 class ProductView extends React.Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class ProductView extends React.Component {
             id: this.props.match.params.id,
             name: "",
             price: 0,
-            description: ""
+            description: "",
+            image_url: ""
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -21,6 +23,7 @@ class ProductView extends React.Component {
 
     componentDidMount() {
         getSpecificProduct(this)
+        getImages(this, this.props.location.state);
         console.log(this.state)
     }
 
@@ -41,7 +44,7 @@ class ProductView extends React.Component {
                 <NavigationBar app={app}/>
                 <div className="product">
                     <div className="column left">
-                        <img  src={logo}/>
+                        <img  src={this.state.image_url}/>
                     </div>
                     <div className="column right">
                         <ProductDetail product={this.state} app={app}/>

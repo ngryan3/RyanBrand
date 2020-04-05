@@ -1,5 +1,6 @@
 import ApiUrl from "../api/config"
 
+const log = console.log
 // Functions to help with user actions
 // A function to check if a user is logged in on the session cookie
 export const readCookie = (app) => {
@@ -73,6 +74,32 @@ export const logout = (app) => {
         });
 };
 
+export const removeUser = (userListComp, user) => {
+    const url = ApiUrl + "/users/" + user._id;
+    const request = new Request(url, {
+        method: "delete",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+    fetch(request, {credentials: 'include'})
+        .then(function (res) {
+            if (res.status === 200) {
+                const filteredItems = userListComp.state.data.filter(i => {
+                    return i !== user
+                });
+                userListComp.setState({
+                    data: filteredItems
+                });
+                console.log(user.username + 'was removed from database');
+                alert(user.username + " was removed from database")
+            } else {
+                console.log('failed to remove user from database')
+            }
+        })
+};
+
 export const addUser = (formComp) => {
     // the URL for the request
     const url = ApiUrl + "/users";
@@ -110,6 +137,24 @@ export const addUser = (formComp) => {
         .catch(error => {
             console.log(error);
         });
+};
+
+export const getAllUsers = (usersComp) => {
+    // the URL for the request
+    const url = ApiUrl + "/users";
+    fetch(url, {credentials: 'include'})
+    .then((res) => {
+        if (res.status === 200){
+            log("successfully retrieved users");
+            return res.json()
+        } else {
+            alert('Could not get users');
+        }
+    }).then(json => {
+        usersComp.setState({ data: json, isLoaded: true})
+    }).catch(error => {
+        log(error);
+    })
 };
 
 // Backup if session doesn't work anymore

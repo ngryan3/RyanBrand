@@ -14,13 +14,16 @@ mongoose.set('useFindAndModify', false); // for some deprecation issues
 const { User } = require("./models/user");
 const { Product } = require("./models/product");
 const { Admin } = require("./models/admin");
-
+const { Image } = require("./models/image");
 // to validate object IDs
 const { ObjectID } = require('mongodb');
 
 // body-parser: middleware for parsing HTTP JSON body into a usable object
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+
+const multipart = require('connect-multiparty');
+const multipartMiddleware = multipart();
 
 // express-session for managing user sessions
 const session = require("express-session");
@@ -30,13 +33,71 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /*app.all("/*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "https://quiet-journey-89938.herokuapp.com/");
     next();
-});*///
-app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
-app.all("/*", function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    next();
+});
+// app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
+// app.all("/*", function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+//     next();
+// });
+
+const cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: 'dmbxvplfi',
+    api_key: '836432484419276',
+    api_secret: 'zMpioL6kBuU9OxiM12pYSSN4jc4'
 });
 
+/** Image API Routes ***************************************/
+app.post("/images/:name", multipartMiddleware, (req, res) => {
+    // Use uploader.upload API to upload image to cloudinary server.
+    const name = req.params.name
+    cloudinary.uploader.upload(
+        req.files.image.path, // req.files contains uploaded files
+        function (result) {
+
+            // Create a new image using the Image mongoose model
+            var img = new Image({
+                image_id: result.public_id, // image id on cloudinary server
+                image_url: result.url, // image url on cloudinary server
+                product_name: name,
+                created_at: new Date(),
+            });
+
+            // Save image to the database
+            img.save().then(
+                saveRes => {
+                    res.send(saveRes);
+                },
+                error => {
+                    res.status(400).send(error); // 400 for bad request
+                }
+            );
+        });
+});
+
+// a GET route to get all images
+app.get("/images/:name", (req, res) => {
+    const name = req.params.name;
+    Image.findOne({product_name: name}).then(
+        images => {
+            res.send(images); // can wrap in object if want to add more properties
+        },
+        error => {
+            res.status(500).send(error); // server error
+        }
+    );
+});
+
+app.get("/images", (req, res) => {
+    Image.find().then(
+        images => {
+            res.send({ images }); // can wrap in object if want to add more properties
+        },
+        error => {
+            res.status(500).send(error); // server error
+        }
+    );
+});
 /*** Session handling **************************************/
 // Create a session cookie
 app.use(
@@ -152,6 +213,28 @@ app.post("/users", (req, res) => {
         }
     )
 });
+
+// a route to delete a user
+app.delete("/users/:id", authenticate_admin, (req, res) => {
+    const id = req.params.id;
+    // Validate id
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+    User.findByIdAndRemove(id)
+        .then(user => {
+            if(!user) {
+                res.status(404).send();
+            } else {
+                res.send(user)
+            }
+        })
+        .catch(error => {
+            res.status(500).send();
+        })
+});
+
 // Get all products from user's cart
 app.get("/cart/:id", authenticate, (req, res) => {
     const id = req.params.id;
@@ -264,7 +347,7 @@ app.post("/products", authenticate_admin, (req, res) => {
         description: req.body.description,
         category: req.body.category
     });
-    log(product)
+    console.log(product);
     product.save().then((result) => {
             res.send(result);
         },
@@ -301,7 +384,6 @@ app.delete("/products/:id", authenticate_admin, (req, res) => {
 // a GET route to get all products
 app.get('/products', (req, res) => {
 	Product.find().then((products) => {
-        console.log("eeeee")
         res.send(products) // can wrap in object if want to add more properties
         
 	}, (error) => {
@@ -413,10 +495,9 @@ app.get('/products/category/:type', (req, res) => {
 // })
 
 // a GET route to get all users
-// TODO: check if admin
-app.get('/users', (req, res) => {
+app.get('/users', authenticate_admin, (req, res) => {
 	User.find().then((users) => {
-		res.send({ users }) // can wrap in object if want to add more properties
+		res.send(users)
 	}, (error) => {
 		res.status(500).send(error) // server error
 	})
@@ -496,6 +577,8 @@ app.post("/admins/login", (req, res) => {
             res.status(400).send(error)
         });
 });
+
+
 
 
 /*** Webpage routes below **********************************/

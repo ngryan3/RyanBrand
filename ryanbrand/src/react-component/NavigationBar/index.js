@@ -1,4 +1,5 @@
 import React from "react";
+import logo from '../../images/ryan-logo-white.png';
 import './styles.css'
 import { NavLink } from "react-router-dom";
 import { logout } from "../../actions/user";
@@ -12,7 +13,8 @@ class NavigationBar extends React.Component {
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
                 <div className='container'>
                     <nav className='navigation'>
-                        <div className='logo'>LOGO</div>
+                        {/* <div className='logo'>LOGO</div> */}
+                        <img src={logo} id="navbar-logo"/>
                         <div className='title'> RyanBrand </div>
                         <div className='spacer'> </div>
                         <div className='navItems'>
