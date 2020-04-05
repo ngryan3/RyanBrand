@@ -14,6 +14,27 @@ In ryanbrand folder:
 `npm install`
 `npm start`
 
+### Note: to use our app locally
+You need to comment out 
+`app.use(cors({ origin: ["https://quiet-journey-89938.herokuapp.com"], credentials: true }));
+app.all("/*", function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://quiet-journey-89938.herokuapp.com/");
+    next();
+});` 
+in server.js
+and uncomment
+`app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
+ app.all("/*", function(req, res, next) {
+     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+     next();
+ });`
+
+ and in `/team23/ryanbrand/src/api/config.js`, comment out
+ `export default "https://quiet-journey-89938.herokuapp.com"`
+ and uncomment
+ `export default "http://localhost:5000"`
+
+
 ## Phase 2 updates:
 ### How to use the application:
 Users that reach the homepage will be prompted to access the catalogue of products sold at the Ryan Store. They can go to the catalogue using the header or the button on the home page. 
