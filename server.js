@@ -29,16 +29,16 @@ const multipartMiddleware = multipart();
 const session = require("express-session");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(cors({ origin: ["https://quiet-journey-89938.herokuapp.com"], credentials: true }));
-// app.all("/*", function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "https://quiet-journey-89938.herokuapp.com/");
-//     next();
-// });
-app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
+app.use(cors({ origin: ["https://quiet-journey-89938.herokuapp.com"], credentials: true }));
 app.all("/*", function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Origin", "https://quiet-journey-89938.herokuapp.com/");
     next();
 });
+// app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
+// app.all("/*", function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+//     next();
+// });
 
 const cloudinary = require('cloudinary');
 cloudinary.config({
@@ -98,7 +98,6 @@ app.get("/images", (req, res) => {
         }
     );
 });
-
 /*** Session handling **************************************/
 // Create a session cookie
 app.use(
@@ -214,6 +213,28 @@ app.post("/users", (req, res) => {
         }
     )
 });
+
+// a route to delete a user
+app.delete("/users/:id", authenticate_admin, (req, res) => {
+    const id = req.params.id;
+    // Validate id
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+    User.findByIdAndRemove(id)
+        .then(user => {
+            if(!user) {
+                res.status(404).send();
+            } else {
+                res.send(user)
+            }
+        })
+        .catch(error => {
+            res.status(500).send();
+        })
+});
+
 // Get all products from user's cart
 app.get("/cart/:id", authenticate, (req, res) => {
     const id = req.params.id;
@@ -363,7 +384,6 @@ app.delete("/products/:id", authenticate_admin, (req, res) => {
 // a GET route to get all products
 app.get('/products', (req, res) => {
 	Product.find().then((products) => {
-        console.log("eeeee")
         res.send(products) // can wrap in object if want to add more properties
         
 	}, (error) => {
@@ -475,10 +495,9 @@ app.get('/products/category/:type', (req, res) => {
 // })
 
 // a GET route to get all users
-// TODO: check if admin
-app.get('/users', (req, res) => {
+app.get('/users', authenticate_admin, (req, res) => {
 	User.find().then((users) => {
-		res.send({ users }) // can wrap in object if want to add more properties
+		res.send(users)
 	}, (error) => {
 		res.status(500).send(error) // server error
 	})
@@ -558,6 +577,8 @@ app.post("/admins/login", (req, res) => {
             res.status(400).send(error)
         });
 });
+
+
 
 
 /*** Webpage routes below **********************************/
