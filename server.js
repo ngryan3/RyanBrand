@@ -33,20 +33,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /*app.all("/*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "https://quiet-journey-89938.herokuapp.com/");
     next();
-<<<<<<< HEAD
-});*///
+});*/
 app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
 app.all("/*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     next();
-=======
-});
-// app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
-// app.all("/*", function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-//     next();
-// });
-
 const cloudinary = require('cloudinary');
 cloudinary.config({
     cloud_name: 'dmbxvplfi',
@@ -93,7 +84,6 @@ app.get("/images/:name", (req, res) => {
             res.status(500).send(error); // server error
         }
     );
->>>>>>> 01d38346715ec2060dd4277ce0f7dc3511edc60e
 });
 
 app.get("/images", (req, res) => {
