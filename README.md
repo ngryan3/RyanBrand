@@ -91,6 +91,9 @@ This route gets all products with category :type. It sends back all the products
 /users/ - GET
 This route gets all users. It returns all users on success, and a 500 on failure.
 
+/users/:id/ - DELETE
+This route allows an admin to delete a user. Must be an admin to use the route. Deletes the user with id. Returns the user deleted on success, and 500 or 404 on failure depending on the type.
+
 /admins/ - POST
 This route creates a new admin. Expects a username and password. Returns the new admin on success. Returns a 400 on error.
 
