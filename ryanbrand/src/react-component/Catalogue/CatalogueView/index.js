@@ -1,6 +1,7 @@
 import React from "react";
 import './styles.css';
 import Tile from '../Tile'
+import Sidebar from '../Sidebar'
 import { getAllProducts } from './../../../actions/product'
 const log = console.log
 
@@ -25,10 +26,15 @@ class TileContainer extends React.Component {
         }
         console.log(products)
         return (
-            <div className="tileContainer">
-                {products.map(product => (
-                    <Tile product={product} />
-                ))}
+            <div id="catalogue">
+                <div id="sidebar-categories">
+                    <Sidebar list={this}/>
+                </div>
+                <div id="tileContainer">
+                    {products.map(product => (
+                        <Tile product={product} />
+                    ))}
+                </div>
             </div>
         )
     }
